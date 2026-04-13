@@ -1,0 +1,43 @@
+# security-audit-mcp
+
+> An MCP server that gives AI agents the ability to run structured security audits based on OWASP Top 10, NIST SP 800-53, and ISO 27001 frameworks.
+
+## What it does
+
+- Provides 6 MCP tools for AI-powered security auditing
+- Supports OWASP Top 10 (2021), NIST SP 800-53 Rev 5, ISO 27001:2022
+- Generates audit reports in JSON, Markdown, and HTML formats
+- Enables AI agents to search controls, record audit results, and produce compliance reports
+- Zero config — works instantly with `npx security-audit-mcp`
+
+## Installation
+
+Add to Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "security-audit": {
+      "command": "npx",
+      "args": ["-y", "security-audit-mcp"]
+    }
+  }
+}
+```
+
+Or Claude Code CLI:
+```bash
+claude mcp add security-audit -- npx -y security-audit-mcp
+```
+
+## Available Tools
+
+- `list_frameworks` — list all available security frameworks
+- `get_framework` — get full checklist (owasp / nist / iso27001)
+- `audit_item` — record pass/fail/skip for a control item
+- `generate_report` — generate audit report (json/markdown/html)
+- `get_risk_summary` — get risk breakdown by severity
+- `search_controls` — search controls by keyword across frameworks
+
+## Source
+
+https://github.com/Nasimashaoz/security-audit-mcp

@@ -1,0 +1,59 @@
+{
+  "name": "security-audit-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for AI-powered security audits — OWASP Top 10, NIST SP 800-53, ISO 27001. Works with Claude, Cursor, and any MCP-compatible AI agent.",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "security-audit-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "prepare": "npm run build",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "security",
+    "owasp",
+    "nist",
+    "iso27001",
+    "audit",
+    "claude",
+    "cursor",
+    "ai",
+    "cybersecurity",
+    "compliance",
+    "model-context-protocol",
+    "security-audit",
+    "pentesting",
+    "vulnerability"
+  ],
+  "author": "Nasima Shaoz <nasimashaoz@github>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nasimashaoz/security-audit-mcp.git"
+  },
+  "homepage": "https://github.com/Nasimashaoz/security-audit-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/Nasimashaoz/security-audit-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
+}
