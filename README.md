@@ -109,6 +109,7 @@ Once installed, your AI agent gets these tools:
 | `generate_report` | Generate a full audit report from session results |
 | `get_risk_summary` | Get a summary of risks by severity level |
 | `search_controls` | Search controls by keyword across all frameworks |
+| `lookup_cve` | Look up information about a specific CVE (Common Vulnerabilities and Exposures) |
 
 ### Example AI Prompts
 
@@ -120,6 +121,7 @@ Once installed, just talk to your AI agent:
 "What are the CRITICAL risks in ISO 27001 I should fix first?"
 "Generate an HTML security audit report for our staging environment"
 "Search for all controls related to authentication across frameworks"
+"Look up CVE-2021-44228 and tell me what it is"
 ```
 
 ---
@@ -134,6 +136,18 @@ Federal security and privacy controls. Required for US government systems, widel
 
 ### ISO 27001:2022
 International standard for information security management. Required for ISO certification.
+
+### PCI-DSS v4.0
+Payment Card Industry Data Security Standard, required for any organization that handles branded credit cards.
+
+### SOC 2 Type II
+Auditing procedure that ensures service providers securely manage data to protect the interests of the organization and the privacy of its clients.
+
+### HIPAA Security Rule
+National standards to protect individuals' electronic personal health information (ePHI).
+
+### CIS Controls v8
+Prioritized set of actions to protect organizations and data from known cyber attack vectors.
 
 ---
 
@@ -179,13 +193,13 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
-- [ ] CVE lookup integration
+- [x] PCI-DSS checklist
+- [x] SOC 2 Type II controls
+- [x] HIPAA Security Rule
+- [x] CIS Controls v8
+- [x] CVE lookup integration
 - [ ] Automated codebase scanning
-- [ ] CI/CD pipeline integration (GitHub Actions)
+- [x] CI/CD pipeline integration (GitHub Actions)
 
 ---
 

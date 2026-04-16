@@ -221,6 +221,77 @@ server.tool(
   }
 );
 
+// ─── Tool: lookup_cve ────────────────────────────────────────────────────────
+server.tool(
+  "lookup_cve",
+  "Look up information about a specific CVE (Common Vulnerabilities and Exposures)",
+  {
+    cveId: z.string().describe("CVE ID to look up (e.g., 'CVE-2021-44228')"),
+  },
+  async ({ cveId }) => {
+    try {
+      const response = await fetch(`https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=${cveId}`);
+
+      if (!response.ok) {
+        return {
+          content: [{ type: "text", text: `Failed to fetch data for ${cveId}. Status: ${response.status}` }],
+          isError: true,
+        };
+      }
+
+      const data = await response.json();
+
+      if (!data || !data.vulnerabilities || data.vulnerabilities.length === 0) {
+        return {
+          content: [{ type: "text", text: `No information found for ${cveId}.` }],
+          isError: true,
+        };
+      }
+
+      const cve = data.vulnerabilities[0].cve;
+
+      // Extract English description
+      const description = cve.descriptions?.find((d: any) => d.lang === "en")?.value || "No description available.";
+
+      // Extract CVSS scores if available
+      let metrics = {};
+      if (cve.metrics) {
+        const cvssMetrics = cve.metrics.cvssMetricV31 || cve.metrics.cvssMetricV30 || cve.metrics.cvssMetricV2;
+        if (cvssMetrics && cvssMetrics.length > 0) {
+          const m = cvssMetrics[0].cvssData;
+          metrics = {
+            version: m.version,
+            baseScore: m.baseScore,
+            baseSeverity: m.baseSeverity || cvssMetrics[0].baseSeverity,
+            vectorString: m.vectorString
+          };
+        }
+      }
+
+      const summary = {
+        id: cve.id,
+        published: cve.published,
+        lastModified: cve.lastModified,
+        vulnStatus: cve.vulnStatus,
+        description,
+        metrics: Object.keys(metrics).length > 0 ? metrics : "No CVSS metrics available"
+      };
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify(summary, null, 2),
+        }],
+      };
+    } catch (error) {
+      return {
+        content: [{ type: "text", text: `Error looking up CVE: ${error instanceof Error ? error.message : String(error)}` }],
+        isError: true,
+      };
+    }
+  }
+);
+
 // ─── Tool: search_controls ───────────────────────────────────────────────────
 server.tool(
   "search_controls",

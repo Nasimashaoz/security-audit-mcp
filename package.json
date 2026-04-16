@@ -12,6 +12,7 @@
     "start": "node dist/index.js",
     "dev": "tsc --watch",
     "prepare": "npm run build",
+    "test": "vitest run",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
   },
   "keywords": [
@@ -45,8 +46,9 @@
     "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
     "typescript": "^5.3.0",
-    "@types/node": "^20.0.0"
+    "vitest": "^4.1.4"
   },
   "engines": {
     "node": ">=18.0.0"
