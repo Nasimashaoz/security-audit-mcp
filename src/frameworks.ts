@@ -57,4 +57,54 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard for organizations that handle branded credit cards.",
+    items: [
+      { id: "1.1", title: "Network Security Controls", description: "Are network security controls configured and maintained?", risk: "HIGH" },
+      { id: "3.1", title: "Protect Stored Account Data", description: "Is stored account data kept to a minimum and protected?", risk: "CRITICAL" },
+      { id: "4.1", title: "Cryptography during Transmission", description: "Is strong cryptography used to protect transmitted cardholder data?", risk: "CRITICAL" },
+      { id: "6.1", title: "Secure Systems and Software", description: "Are all system components and software protected from known vulnerabilities?", risk: "HIGH" },
+      { id: "8.1", title: "User Identification and Authentication", description: "Are users identified and authenticated before accessing system components?", risk: "HIGH" },
+    ],
+  },
+  soc2: {
+    name: "SOC 2",
+    version: "Type II",
+    description: "Service Organization Control 2, focusing on security, availability, processing integrity, confidentiality, and privacy.",
+    items: [
+      { id: "CC1.1", title: "Control Environment", description: "Does the entity demonstrate a commitment to integrity and ethical values?", risk: "MEDIUM" },
+      { id: "CC5.1", title: "Logical Access Security", description: "Are logical access security software, infrastructure, and architectures implemented to protect information assets?", risk: "CRITICAL" },
+      { id: "CC6.1", title: "Physical Access", description: "Is physical access to facilities restricted to authorized personnel?", risk: "HIGH" },
+      { id: "CC7.1", title: "System Operations", description: "Are system operations monitored to detect and resolve deviations from defined baselines?", risk: "HIGH" },
+      { id: "CC8.1", title: "Change Management", description: "Are changes to IT infrastructure and software authorized, tested, and approved?", risk: "HIGH" },
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "Current",
+    description: "Health Insurance Portability and Accountability Act Security Rule for protecting ePHI.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Are risk analyses conducted and risk management policies implemented?", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Is a security awareness and training program implemented for all workforce members?", risk: "MEDIUM" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are access controls in place to ensure only authorized persons can access ePHI?", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Are hardware, software, and procedural mechanisms implemented that record and examine activity in information systems?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are security measures implemented to guard against unauthorized access to ePHI being transmitted?", risk: "CRITICAL" },
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Controls to defend against pervasive cyber threats.",
+    items: [
+      { id: "1", title: "Inventory and Control of Enterprise Assets", description: "Are enterprise assets actively managed (inventoried, tracked, and corrected)?", risk: "HIGH" },
+      { id: "3", title: "Data Protection", description: "Are processes and technical controls implemented to identify, classify, and protect data?", risk: "CRITICAL" },
+      { id: "4", title: "Secure Configuration of Assets", description: "Are secure configurations maintained for all enterprise assets?", risk: "HIGH" },
+      { id: "5", title: "Account Management", description: "Are processes and tools used to manage authorization and authentication for all accounts?", risk: "HIGH" },
+      { id: "6", title: "Access Control Management", description: "Are processes and tools used to create, assign, manage, and revoke access credentials?", risk: "CRITICAL" },
+      { id: "8", title: "Audit Log Management", description: "Are audit logs collected, alerted on, and reviewed?", risk: "MEDIUM" },
+    ],
+  },
 };
