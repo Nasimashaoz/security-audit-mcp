@@ -7,7 +7,7 @@
 [![Claude](https://img.shields.io/badge/Works%20with-Claude-orange)](https://claude.ai)
 [![Cursor](https://img.shields.io/badge/Works%20with-Cursor-blue)](https://cursor.sh)
 
-> **Give your AI agent a security brain.** Run structured OWASP, NIST, and ISO 27001 audits directly inside Claude, Cursor, or any MCP-compatible AI agent — in seconds.
+> **Give your AI agent a security brain.** Run structured OWASP, NIST, ISO 27001, PCI-DSS, SOC 2, HIPAA, and CIS v8 audits directly inside Claude, Cursor, or any MCP-compatible AI agent — in seconds.
 
 ---
 
@@ -29,7 +29,7 @@ npm install -g security-audit-mcp
 
 `security-audit-mcp` is a **Model Context Protocol (MCP) server** that gives AI agents like Claude and Cursor the ability to:
 
-- 🔍 **Run security audits** against OWASP Top 10, NIST SP 800-53, ISO 27001
+- 🔍 **Run security audits** against OWASP Top 10, NIST SP 800-53, ISO 27001, PCI-DSS, SOC 2, HIPAA, CIS v8
 - 🚨 **Identify risks** with CRITICAL / HIGH / MEDIUM / LOW severity scoring
 - 📊 **Generate audit reports** in JSON, CSV, or HTML format
 - 🧠 **Answer security questions** with structured framework knowledge
@@ -104,7 +104,7 @@ Once installed, your AI agent gets these tools:
 | Tool | Description |
 |------|-------------|
 | `list_frameworks` | List all available security frameworks |
-| `get_framework` | Get full checklist for a framework (owasp / nist / iso27001) |
+| `get_framework` | Get full checklist for a framework (owasp / nist / iso27001 / pcidss / soc2 / hipaa / cisv8) |
 | `audit_item` | Assess a specific control item with pass/fail/skip + notes |
 | `generate_report` | Generate a full audit report from session results |
 | `get_risk_summary` | Get a summary of risks by severity level |
@@ -135,6 +135,18 @@ Federal security and privacy controls. Required for US government systems, widel
 ### ISO 27001:2022
 International standard for information security management. Required for ISO certification.
 
+### PCI-DSS v4.0
+Payment Card Industry Data Security Standard for organizations that handle branded credit cards.
+
+### SOC 2 Type II
+Service Organization Control 2, focusing on security, availability, processing integrity, confidentiality, and privacy.
+
+### HIPAA Security Rule
+Health Insurance Portability and Accountability Act Security Rule for protecting ePHI.
+
+### CIS Controls v8
+Center for Internet Security Controls to defend against pervasive cyber threats.
+
 ---
 
 ## 🔧 Local Development
@@ -157,7 +169,7 @@ npx @modelcontextprotocol/inspector node dist/index.js
 
 ## 🤝 Contributing
 
-Want to add a new framework (CIS Controls, PCI-DSS, SOC 2, HIPAA)? PRs welcome!
+Want to add a new framework? PRs welcome!
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
@@ -179,10 +191,10 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
+- [x] PCI-DSS checklist
+- [x] SOC 2 Type II controls
+- [x] HIPAA Security Rule
+- [x] CIS Controls v8
 - [ ] CVE lookup integration
 - [ ] Automated codebase scanning
 - [ ] CI/CD pipeline integration (GitHub Actions)
