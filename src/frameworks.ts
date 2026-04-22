@@ -57,4 +57,89 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "4.0",
+    description: "Payment Card Industry Data Security Standard, required for handling branded credit cards from the major card schemes.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are firewalls configured to protect cardholder data? Are default vendor passwords changed?", risk: "CRITICAL" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is PAN (Primary Account Number) masked when displayed? Is stored account data encrypted or tokenized?", risk: "CRITICAL" },
+      { id: "Req-4", title: "Protect Cardholder Data in Transit", description: "Is cardholder data encrypted using strong cryptography during transmission over open, public networks?", risk: "CRITICAL" },
+      { id: "Req-5", title: "Protect All Systems Against Malware", description: "Is anti-malware software deployed and regularly updated on all commonly affected systems?", risk: "HIGH" },
+      { id: "Req-6", title: "Develop and Maintain Secure Systems", description: "Are all critical systems and applications patched within one month of release? Is secure software development practiced?", risk: "HIGH" },
+      { id: "Req-7", title: "Restrict Access to Cardholder Data", description: "Is access to cardholder data strictly restricted on a business need-to-know basis?", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Are unique IDs assigned to all users? Is multi-factor authentication (MFA) required for all administrative access?", risk: "CRITICAL" },
+      { id: "Req-10", title: "Log and Monitor All Access", description: "Are audit logs maintained for all access to cardholder data and administrative actions?", risk: "HIGH" },
+      { id: "Req-11", title: "Test Security of Systems Regularly", description: "Are vulnerability scans and penetration tests performed regularly on the cardholder data environment?", risk: "HIGH" },
+      { id: "Req-12", title: "Maintain Security Policies", description: "Is there a documented security policy that is reviewed annually and communicated to all personnel?", risk: "MEDIUM" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017 Trust Services Criteria",
+    description: "Service Organization Controls based on Trust Services Criteria (Security, Availability, Processing Integrity, Confidentiality, Privacy).",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "Does management demonstrate a commitment to integrity and ethical values? Are security policies enforced?", risk: "HIGH" },
+      { id: "CC2", title: "Communication and Information", description: "Is relevant security information communicated internally and externally to support the functioning of internal controls?", risk: "MEDIUM" },
+      { id: "CC3", title: "Risk Assessment", description: "Are regular risk assessments performed to identify threats, vulnerabilities, and changes that could affect the system?", risk: "HIGH" },
+      { id: "CC5", title: "Control Activities", description: "Are technological controls deployed to mitigate risks? Is there a formal process for change management?", risk: "HIGH" },
+      { id: "CC6.1", title: "Logical Access Security", description: "Are internal and external users authenticated before accessing systems? Is access provisioned based on role?", risk: "CRITICAL" },
+      { id: "CC6.6", title: "Boundary Protection", description: "Are external boundaries protected? Are firewalls, intrusion detection/prevention systems (IDS/IPS) in place?", risk: "HIGH" },
+      { id: "CC6.8", title: "Unauthorized or Malicious Software", description: "Are controls in place to detect and prevent unauthorized or malicious software?", risk: "HIGH" },
+      { id: "CC7.1", title: "System Monitoring", description: "Are systems monitored to detect anomalies and security events that could compromise data?", risk: "HIGH" },
+      { id: "CC7.3", title: "Incident Response", description: "Is there an incident response plan to evaluate, respond to, and communicate security incidents?", risk: "HIGH" },
+      { id: "CC8", title: "Change Management", description: "Are all system changes documented, tested, and approved before deployment?", risk: "HIGH" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "1996",
+    description: "National standards to protect individuals' electronic personal health information (ePHI).",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Has a risk analysis been conducted? Are security measures implemented to reduce risk to a reasonable level?", risk: "CRITICAL" },
+      { id: "164.308(a)(3)", title: "Workforce Security", description: "Are procedures in place to authorize access to ePHI and to terminate access when employment ends?", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Are all workforce members receiving periodic security updates and training on malicious software?", risk: "HIGH" },
+      { id: "164.308(a)(6)", title: "Security Incident Procedures", description: "Are policies established to identify, respond to, and document suspected security incidents?", risk: "HIGH" },
+      { id: "164.308(a)(7)", title: "Contingency Plan", description: "Are data backup, disaster recovery, and emergency mode operations plans documented and tested?", risk: "CRITICAL" },
+      { id: "164.310(a)(1)", title: "Facility Access Controls", description: "Are physical facilities and equipment protected from unauthorized physical access, tampering, and theft?", risk: "HIGH" },
+      { id: "164.310(d)(1)", title: "Device and Media Controls", description: "Are procedures in place for the receipt, removal, and secure disposal of hardware containing ePHI?", risk: "MEDIUM" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are unique user identifiers assigned? Is there a procedure for accessing ePHI during an emergency?", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Are hardware and software mechanisms in place to record and examine activity in systems containing ePHI?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are integrity controls and encryption used to protect ePHI transmitted over electronic communication networks?", risk: "CRITICAL" }
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls v8",
+    version: "8.0",
+    description: "Center for Internet Security Controls, prioritized set of actions for cybersecurity defense.",
+    items: [
+      { id: "CIS-1", title: "Inventory of Enterprise Assets", description: "Is there a continuously updated inventory of all enterprise assets connected to the infrastructure?", risk: "HIGH" },
+      { id: "CIS-2", title: "Inventory of Software Assets", description: "Is there an inventory of all software authorized to execute on enterprise assets?", risk: "HIGH" },
+      { id: "CIS-3", title: "Data Protection", description: "Are processes established for data classification, data retention, and secure disposal of data?", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration", description: "Are secure configuration processes maintained for enterprise assets and software?", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Are processes to assign and manage authorization to credentials for user accounts active?", risk: "CRITICAL" },
+      { id: "CIS-6", title: "Access Control Management", description: "Is access to enterprise assets and software managed based on the principle of least privilege?", risk: "CRITICAL" },
+      { id: "CIS-7", title: "Continuous Vulnerability Management", description: "Are internal and external vulnerabilities continuously assessed and remediated?", risk: "HIGH" },
+      { id: "CIS-8", title: "Audit Log Management", description: "Are audit logs collected, alerted on, and reviewed for security incidents?", risk: "HIGH" },
+      { id: "CIS-9", title: "Email and Web Browser Protections", description: "Are protections implemented for email and web browsers to prevent malicious interactions?", risk: "MEDIUM" },
+      { id: "CIS-10", title: "Malware Defenses", description: "Are malware defenses controlled and updated on all enterprise assets?", risk: "HIGH" }
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016",
+    description: "General Data Protection Regulation for the EU data protection and privacy.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing", description: "Is personal data processed lawfully, fairly, and transparently? Is data minimized to necessary bounds?", risk: "CRITICAL" },
+      { id: "Art-15", title: "Right of access by the data subject", description: "Can data subjects access their personal data and understand how it is being processed?", risk: "HIGH" },
+      { id: "Art-17", title: "Right to erasure ('right to be forgotten')", description: "Is there a process for individuals to request the deletion of their personal data without undue delay?", risk: "HIGH" },
+      { id: "Art-24", title: "Responsibility of the controller", description: "Are appropriate technical and organisational measures implemented to ensure and demonstrate compliance?", risk: "HIGH" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "Are data protection principles integrated into the design phase of systems and by default operations?", risk: "CRITICAL" },
+      { id: "Art-28", title: "Processor agreements", description: "Are data processing agreements (DPAs) signed with all third-party vendors handling personal data?", risk: "HIGH" },
+      { id: "Art-30", title: "Records of processing activities", description: "Is a Record of Processing Activities (RoPA) maintained, detailing what personal data is processed?", risk: "MEDIUM" },
+      { id: "Art-32", title: "Security of processing", description: "Is personal data encrypted, and is the ongoing confidentiality, integrity, availability, and resilience of systems ensured?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach", description: "Is there a process to notify the supervisory authority of a data breach within 72 hours?", risk: "CRITICAL" },
+      { id: "Art-35", title: "Data protection impact assessment (DPIA)", description: "Are DPIAs conducted prior to processing activities that are likely to result in a high risk to rights and freedoms?", risk: "HIGH" }
+    ]
+  }
 };
