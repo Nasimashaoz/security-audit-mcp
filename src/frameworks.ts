@@ -1,6 +1,80 @@
 import type { Framework } from "./types.js";
 
 export const FRAMEWORKS: Record<string, Framework> = {
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard, required for organizations that handle branded credit cards.",
+    items: [
+      { id: "Req-1", title: "Network Security Controls", description: "Install and Maintain Network Security Controls", risk: "CRITICAL" },
+      { id: "Req-2", title: "Secure Configurations", description: "Apply Secure Configurations to All System Components", risk: "HIGH" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Protect Stored Account Data", risk: "CRITICAL" },
+      { id: "Req-4", title: "Cryptography during transmission", description: "Protect Data in Transit with Strong Cryptography", risk: "HIGH" },
+      { id: "Req-5", title: "Protect against Malicious Software", description: "Protect All Systems and Networks from Malicious Software", risk: "HIGH" },
+      { id: "Req-6", title: "Secure Systems and Software", description: "Develop and Maintain Secure Systems and Software", risk: "HIGH" },
+      { id: "Req-7", title: "Restrict Access", description: "Restrict Access to System Components and Cardholder Data by Business Need to Know", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Identify Users and Authenticate Access to System Components", risk: "CRITICAL" },
+      { id: "Req-9", title: "Restrict Physical Access", description: "Restrict Physical Access to Cardholder Data", risk: "MEDIUM" },
+      { id: "Req-10", title: "Log and Monitor All Access", description: "Log and Monitor All Access to System Components and Cardholder Data", risk: "HIGH" },
+      { id: "Req-11", title: "Test Security of Systems", description: "Test Security of Systems and Networks Regularly", risk: "HIGH" },
+      { id: "Req-12", title: "Support Information Security", description: "Support Information Security with Organizational Policies and Programs", risk: "LOW" },
+    ]
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017",
+    description: "Service Organization Control 2, defining criteria for managing customer data based on five trust service principles.",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "The organization demonstrates a commitment to integrity and ethical values.", risk: "HIGH" },
+      { id: "CC2", title: "Communication and Information", description: "The organization obtains or generates and uses relevant, quality information.", risk: "MEDIUM" },
+      { id: "CC3", title: "Risk Assessment", description: "The organization assesses risks to the achievement of its objectives.", risk: "HIGH" },
+      { id: "CC4", title: "Monitoring Activities", description: "The organization evaluates and communicates internal control deficiencies.", risk: "HIGH" },
+      { id: "CC5", title: "Control Activities", description: "The organization selects and develops control activities that mitigate risks.", risk: "CRITICAL" },
+      { id: "CC6", title: "Logical and Physical Access Controls", description: "The entity restricts logical and physical access to information assets.", risk: "CRITICAL" },
+      { id: "CC7", title: "System Operations", description: "The entity manages system operations and resolves incidents.", risk: "HIGH" },
+      { id: "CC8", title: "Change Management", description: "The entity authorizes, designs, tests, and implements changes to infrastructure.", risk: "MEDIUM" },
+      { id: "CC9", title: "Risk Mitigation", description: "The entity identifies, selects, and develops risk mitigation activities.", risk: "HIGH" },
+    ]
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "1996",
+    description: "National standards to protect individuals' electronic personal health information (ePHI).",
+    items: [
+      { id: "164.308", title: "Administrative Safeguards", description: "Implement policies and procedures to prevent, detect, contain, and correct security violations.", risk: "HIGH" },
+      { id: "164.310", title: "Physical Safeguards", description: "Implement physical measures to protect electronic information systems.", risk: "MEDIUM" },
+      { id: "164.312", title: "Technical Safeguards", description: "Implement technical policies for electronic information systems that maintain ePHI.", risk: "CRITICAL" },
+      { id: "164.314", title: "Organizational Requirements", description: "Implement organizational policies, procedures, and documentation requirements.", risk: "LOW" },
+      { id: "164.316", title: "Policies and Procedures", description: "Implement reasonable and appropriate policies and procedures.", risk: "MEDIUM" },
+    ]
+  },
+  cisv8: {
+    name: "CIS Controls v8",
+    version: "v8",
+    description: "A prioritized set of actions that collectively form a defense-in-depth set of best practices that mitigate the most common attacks against systems and networks.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Actively manage (inventory, track, and correct) all enterprise assets.", risk: "HIGH" },
+      { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Actively manage (inventory, track, and correct) all software on the network.", risk: "HIGH" },
+      { id: "CIS-3", title: "Data Protection", description: "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration of Enterprise Assets", description: "Establish and maintain the secure configuration of enterprise assets and software.", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Use processes and tools to assign and manage authorization to credentials.", risk: "CRITICAL" },
+      { id: "CIS-6", title: "Access Control Management", description: "Use processes and tools to create, assign, manage, and revoke access credentials.", risk: "CRITICAL" },
+      { id: "CIS-7", title: "Continuous Vulnerability Management", description: "Develop a plan to continuously assess and track vulnerabilities on all enterprise assets.", risk: "HIGH" },
+      { id: "CIS-8", title: "Audit Log Management", description: "Collect, alert, review, and retain audit logs of events that could help detect, understand, or recover from an attack.", risk: "HIGH" },
+    ]
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2018",
+    description: "General Data Protection Regulation. EU law on data protection and privacy.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing of personal data", description: "Data must be processed lawfully, fairly and in a transparent manner.", risk: "HIGH" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "Implement appropriate technical and organisational measures.", risk: "CRITICAL" },
+      { id: "Art-32", title: "Security of processing", description: "Implement appropriate technical and organisational measures to ensure a level of security.", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach", description: "Notify the supervisory authority of a personal data breach within 72 hours.", risk: "HIGH" },
+      { id: "Art-35", title: "Data protection impact assessment", description: "Carry out an assessment of the impact of the envisaged processing operations on the protection of personal data.", risk: "MEDIUM" },
+    ]
+  },
   owasp: {
     name: "OWASP Top 10",
     version: "2021",
