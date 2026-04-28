@@ -109,6 +109,7 @@ Once installed, your AI agent gets these tools:
 | `generate_report` | Generate a full audit report from session results |
 | `get_risk_summary` | Get a summary of risks by severity level |
 | `search_controls` | Search controls by keyword across all frameworks |
+| `get_session_status` | Get the current status and results of an ongoing audit session |
 
 ### Example AI Prompts
 
@@ -179,10 +180,10 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
+- [x] PCI-DSS checklist
+- [x] SOC 2 Type II controls
+- [x] HIPAA Security Rule
+- [x] CIS Controls v8
 - [ ] CVE lookup integration
 - [ ] Automated codebase scanning
 - [ ] CI/CD pipeline integration (GitHub Actions)
