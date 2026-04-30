@@ -57,4 +57,54 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard for protecting cardholder data.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are firewalls installed and configured to protect cardholder data?", risk: "CRITICAL" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored cardholder data encrypted?", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Is MFA required for all access to the CDE?", risk: "HIGH" },
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017",
+    description: "Service Organization Control 2 trust services criteria.",
+    items: [
+      { id: "CC6.1", title: "Logical Access", description: "Is logical access to systems and data restricted to authorized users?", risk: "HIGH" },
+      { id: "CC6.6", title: "System Boundaries", description: "Are system boundaries protected against unauthorized access?", risk: "HIGH" },
+      { id: "CC7.1", title: "Vulnerability Management", description: "Are vulnerabilities identified and remediated in a timely manner?", risk: "CRITICAL" },
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "2013",
+    description: "Health Insurance Portability and Accountability Act standards for protecting ePHI.",
+    items: [
+      { id: "164.308(a)(1)", title: "Risk Analysis", description: "Has an accurate and thorough assessment of potential risks to ePHI been conducted?", risk: "CRITICAL" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are access controls implemented to allow only authorized persons to access ePHI?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Is ePHI encrypted when transmitted over an electronic communications network?", risk: "CRITICAL" },
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Critical Security Controls.",
+    items: [
+      { id: "CIS-1", title: "Inventory of Enterprise Assets", description: "Are all enterprise assets actively managed?", risk: "HIGH" },
+      { id: "CIS-4", title: "Secure Configuration", description: "Are secure configurations established and maintained?", risk: "MEDIUM" },
+      { id: "CIS-6", title: "Access Control Management", description: "Are processes and tools used to create, assign, and manage access?", risk: "HIGH" },
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016",
+    description: "General Data Protection Regulation for EU data privacy.",
+    items: [
+      { id: "Art-25", title: "Data Protection by Design and by Default", description: "Are appropriate technical and organizational measures implemented?", risk: "HIGH" },
+      { id: "Art-32", title: "Security of Processing", description: "Is the security of personal data processing ensured?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Data Breach Notification", description: "Are data breaches reported within 72 hours?", risk: "MEDIUM" },
+    ],
+  }
 };
