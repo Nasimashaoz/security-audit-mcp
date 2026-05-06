@@ -1,0 +1,4 @@
+node_modules\ndist\ncoverage\n
+node_modules/
+dist/
+coverage/
