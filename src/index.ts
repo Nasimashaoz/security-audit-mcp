@@ -13,7 +13,11 @@ import { z } from "zod";
 import { FRAMEWORKS } from "./frameworks.js";
 import type { AuditSession, FrameworkItem } from "./types.js";
 
-const server = new McpServer({
+const frameworkKeys = Object.keys(FRAMEWORKS) as [string, ...string[]];
+const FrameworkEnum = z.enum(frameworkKeys);
+const FrameworkOrAllEnum = z.enum([...frameworkKeys, 'all'] as [string, ...string[]]);
+
+export const server = new McpServer({
   name: "security-audit-mcp",
   version: "1.0.0",
   description: "AI-powered security audit tools for OWASP, NIST, and ISO 27001",
@@ -49,9 +53,7 @@ server.tool(
   "get_framework",
   "Get the full checklist for a specific security framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]).describe(
-      "Framework ID: owasp | nist | iso27001"
-    ),
+    framework: FrameworkEnum.describe(`Framework ID: ${frameworkKeys.join(" | ")}`),
   },
   async ({ framework }) => {
     const fw = FRAMEWORKS[framework];
@@ -76,7 +78,7 @@ server.tool(
   "Record a pass/fail/skip result for a specific audit control item",
   {
     sessionId: z.string().describe("Unique audit session ID (create any string)"),
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: FrameworkEnum,
     itemId: z.string().describe("Control ID e.g. A01, AC-2, A.5.1"),
     status: z.enum(["pass", "fail", "skip"]).describe("Audit result"),
     notes: z.string().optional().describe("Optional notes or remediation steps"),
@@ -84,7 +86,7 @@ server.tool(
   async ({ sessionId, framework, itemId, status, notes }) => {
     const fw = FRAMEWORKS[framework];
     const item = fw?.items.find((i: FrameworkItem) => i.id === itemId);
-    if (!item) {
+    if (!item && fw) {
       return {
         content: [{ type: "text", text: `Item '${itemId}' not found in ${framework}.` }],
         isError: true,
@@ -98,7 +100,7 @@ server.tool(
 
     // Update or add result
     const existing = session.results.findIndex(r => r.itemId === itemId);
-    const result = { itemId, title: item.title, risk: item.risk, status, notes: notes ?? "" };
+    const result = { itemId, title: item!.title, risk: item!.risk, status, notes: notes ?? "" };
     if (existing >= 0) {
       session.results[existing] = result;
     } else {
@@ -110,7 +112,7 @@ server.tool(
         type: "text",
         text: JSON.stringify({
           recorded: result,
-          sessionProgress: `${session.results.length} / ${fw.items.length} items audited`,
+          sessionProgress: `${session.results.length} / ${fw?.items.length || 0} items audited`,
         }, null, 2),
       }],
     };
@@ -151,7 +153,7 @@ server.tool(
           type: "text",
           text: JSON.stringify({
             session: sessionId,
-            framework: fw.name,
+            framework: fw?.name || session.framework,
             score: `${score}%`,
             summary: { passed, failed, skipped },
             criticalFindings: criticalFails,
@@ -189,7 +191,7 @@ server.tool(
 
     const html = `<!DOCTYPE html><html><head><title>Security Audit Report</title>
 <style>body{font-family:system-ui;margin:40px;color:#111}h1{color:#dc2626}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #e5e7eb;padding:10px;text-align:left}th{background:#f9fafb;font-weight:600}.score{font-size:2em;font-weight:bold;color:#16a34a}</style></head>
-<body><h1>🔒 Security Audit Report</h1><h2>${fw.name}</h2><div class="score">${score}%</div><p>Passed: ${passed} | Failed: ${failed} | Skipped: ${skipped}</p>
+<body><h1>🔒 Security Audit Report</h1><h2>${fw?.name || session.framework}</h2><div class="score">${score}%</div><p>Passed: ${passed} | Failed: ${failed} | Skipped: ${skipped}</p>
 <table><tr><th>ID</th><th>Title</th><th>Risk</th><th>Status</th><th>Notes</th></tr>${rows}</table>
 <p><small>Generated ${new Date().toISOString()} by security-audit-mcp</small></p></body></html>`;
 
@@ -202,7 +204,7 @@ server.tool(
   "get_risk_summary",
   "Get a breakdown of risks by severity level for a framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: FrameworkEnum,
   },
   async ({ framework }) => {
     const fw = FRAMEWORKS[framework];
@@ -227,7 +229,7 @@ server.tool(
   "Search for security controls by keyword across all frameworks",
   {
     query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
-    framework: z.enum(["owasp", "nist", "iso27001", "all"]).default("all"),
+    framework: FrameworkOrAllEnum.default("all"),
   },
   async ({ query, framework }) => {
     const q = query.toLowerCase();
@@ -260,13 +262,15 @@ server.tool(
 );
 
 // ─── Start Server ────────────────────────────────────────────────────────────
-async function main() {
+export async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("🔐 security-audit-mcp server running on stdio");
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== 'test') {
+  main().catch((err) => {
+    console.error('Fatal error:', err);
+    process.exit(1);
+  });
+}
