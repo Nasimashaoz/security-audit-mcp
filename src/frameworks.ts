@@ -57,4 +57,65 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+
+  "pci-dss": {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard for organizations that handle branded credit cards.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are network security controls (firewalls) installed and maintained to protect cardholder data?", risk: "CRITICAL" },
+      { id: "Req-2", title: "Apply Secure Configurations", description: "Are vendor-supplied default passwords and other security parameters changed?", risk: "HIGH" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored cardholder data protected, including encryption, truncation, masking, and hashing?", risk: "CRITICAL" },
+      { id: "Req-4", title: "Protect Data in Transit", description: "Is cardholder data encrypted with strong cryptography during transmission over open, public networks?", risk: "HIGH" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Are users uniquely identified and authenticated before access is granted to system components?", risk: "HIGH" },
+    ],
+  },
+  "soc2": {
+    name: "SOC 2",
+    version: "Type II",
+    description: "Service Organization Control 2, evaluating an organization's information systems relevant to security, availability, processing integrity, confidentiality, or privacy.",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "Does the organization demonstrate a commitment to integrity and ethical values?", risk: "MEDIUM" },
+      { id: "CC5", title: "Logical and Physical Access Controls", description: "Are logical access security software, infrastructure, and architectures implemented to protect information assets?", risk: "HIGH" },
+      { id: "CC6", title: "System Operations", description: "Are system operations monitored, evaluated, and authorized to prevent deviations from policies?", risk: "HIGH" },
+      { id: "CC7", title: "Incident Management", description: "Is there a documented incident response process, and are incidents evaluated and responded to?", risk: "CRITICAL" },
+      { id: "CC8", title: "Change Management", description: "Are changes to infrastructure, data, software, and procedures authorized, tested, and approved?", risk: "MEDIUM" },
+    ],
+  },
+  "hipaa": {
+    name: "HIPAA",
+    version: "Security Rule",
+    description: "Health Insurance Portability and Accountability Act Security Rule establishes national standards to protect individuals' electronic personal health information.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Are risk analyses conducted, and are security measures implemented to reduce risks to ePHI?", risk: "CRITICAL" },
+      { id: "164.308(a)(3)", title: "Workforce Security", description: "Are policies implemented to ensure appropriate access to ePHI by workforce members?", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Is a security awareness and training program implemented for all workforce members?", risk: "MEDIUM" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are technical policies and procedures implemented to allow access only to those authorized?", risk: "CRITICAL" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are technical security measures implemented to guard against unauthorized access to ePHI transmitted over electronic networks?", risk: "HIGH" },
+    ],
+  },
+  "cis-v8": {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Controls, a prioritized set of actions that protect against widespread cyber attack vectors.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Is an accurate and up-to-date inventory of all enterprise assets maintained?", risk: "HIGH" },
+      { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Is an accurate and up-to-date inventory of all software assets maintained?", risk: "HIGH" },
+      { id: "CIS-3", title: "Data Protection", description: "Are processes and technical controls developed to identify, classify, securely handle, retain, and dispose of data?", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration", description: "Are secure configurations established and maintained for enterprise assets and software?", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Are processes established and maintained to assign and manage authorization to credentials?", risk: "HIGH" },
+    ],
+  },
+  "gdpr": {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation, the toughest privacy and security law in the world, drafted and passed by the European Union.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing of personal data", description: "Is personal data processed lawfully, fairly, and in a transparent manner?", risk: "HIGH" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "Are appropriate technical and organizational measures implemented to integrate necessary safeguards into data processing?", risk: "CRITICAL" },
+      { id: "Art-30", title: "Records of processing activities", description: "Are records of processing activities maintained under the responsibility of the controller?", risk: "MEDIUM" },
+      { id: "Art-32", title: "Security of processing", description: "Is a level of security appropriate to the risk implemented, including encryption of personal data?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach", description: "Is there a process to notify the supervisory authority of a personal data breach within 72 hours?", risk: "HIGH" },
+    ],
+  },
 };
