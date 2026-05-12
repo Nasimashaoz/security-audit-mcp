@@ -57,4 +57,44 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "4.0",
+    description: "Payment Card Industry Data Security Standard, required for handling credit card information.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are network security controls (NSCs) configured and maintained?", risk: "CRITICAL" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored account data kept to a minimum and encrypted?", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Are unique IDs and MFA used for all access to the CDE?", risk: "HIGH" },
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017",
+    description: "Service Organization Control 2, focusing on security, availability, processing integrity, confidentiality, and privacy.",
+    items: [
+      { id: "CC6.1", title: "Logical Access Security", description: "Does the entity implement logical access security software, infrastructure, and architectures over protected information assets?", risk: "CRITICAL" },
+      { id: "CC6.6", title: "Boundary Protection", description: "Does the entity implement logical access security measures to protect against threats from sources outside its system boundaries?", risk: "HIGH" },
+      { id: "CC7.2", title: "Security Monitoring", description: "Does the entity monitor system components and the operation of those components for anomalies?", risk: "MEDIUM" },
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "2003",
+    description: "Health Insurance Portability and Accountability Act, required for protecting sensitive patient health information.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Is a risk analysis performed and are risk management policies implemented?", risk: "CRITICAL" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are access controls implemented to allow only authorized persons to access electronic protected health information (ePHI)?", risk: "CRITICAL" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are measures implemented to guard against unauthorized access to ePHI that is being transmitted over an electronic communications network?", risk: "HIGH" },
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls v8",
+    version: "v8",
+    description: "Center for Internet Security Critical Security Controls, a prioritized set of cybersecurity best practices.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Are all enterprise assets actively managed (inventoried, tracked, and corrected)?", risk: "HIGH" },
+      { id: "CIS-4", title: "Secure Configuration of Enterprise Assets and Software", description: "Are secure configurations established and maintained for enterprise assets and software?", risk: "HIGH" },
+      { id: "CIS-6", title: "Access Control Management", description: "Are processes and tools used to create, assign, manage, and revoke access credentials and privileges?", risk: "CRITICAL" },
+    ],
+  },
 };
