@@ -13,14 +13,16 @@ import { z } from "zod";
 import { FRAMEWORKS } from "./frameworks.js";
 import type { AuditSession, FrameworkItem } from "./types.js";
 
-const server = new McpServer({
+export const server = new McpServer({
   name: "security-audit-mcp",
   version: "1.0.0",
   description: "AI-powered security audit tools for OWASP, NIST, and ISO 27001",
 });
 
 // In-memory session storage
-const sessions = new Map<string, AuditSession>();
+export const sessions = new Map<string, AuditSession>();
+
+const frameworkIds = Object.keys(FRAMEWORKS) as [string, ...string[]];
 
 // ─── Tool: list_frameworks ───────────────────────────────────────────────────
 server.tool(
@@ -49,8 +51,8 @@ server.tool(
   "get_framework",
   "Get the full checklist for a specific security framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]).describe(
-      "Framework ID: owasp | nist | iso27001"
+    framework: z.enum(frameworkIds).describe(
+      `Framework ID: ${frameworkIds.join(" | ")}`
     ),
   },
   async ({ framework }) => {
@@ -76,7 +78,7 @@ server.tool(
   "Record a pass/fail/skip result for a specific audit control item",
   {
     sessionId: z.string().describe("Unique audit session ID (create any string)"),
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: z.enum(frameworkIds),
     itemId: z.string().describe("Control ID e.g. A01, AC-2, A.5.1"),
     status: z.enum(["pass", "fail", "skip"]).describe("Audit result"),
     notes: z.string().optional().describe("Optional notes or remediation steps"),
@@ -202,7 +204,7 @@ server.tool(
   "get_risk_summary",
   "Get a breakdown of risks by severity level for a framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: z.enum(frameworkIds),
   },
   async ({ framework }) => {
     const fw = FRAMEWORKS[framework];
@@ -227,7 +229,7 @@ server.tool(
   "Search for security controls by keyword across all frameworks",
   {
     query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
-    framework: z.enum(["owasp", "nist", "iso27001", "all"]).default("all"),
+    framework: z.enum([...frameworkIds, "all"] as [string, ...string[]]).default("all"),
   },
   async ({ query, framework }) => {
     const q = query.toLowerCase();
@@ -259,6 +261,44 @@ server.tool(
   }
 );
 
+// ─── Tool: cve_lookup ────────────────────────────────────────────────────────
+server.tool(
+  "cve_lookup",
+  "Lookup a CVE by ID to retrieve vulnerability details from the MITRE CVE API",
+  {
+    cveId: z.string().describe("The CVE ID to lookup (e.g., CVE-2021-44228)"),
+  },
+  async ({ cveId }) => {
+    try {
+      const response = await fetch(`https://cveawg.mitre.org/api/cve/${cveId}`);
+
+      if (response.status === 404) {
+         return {
+          content: [{ type: "text", text: `CVE '${cveId}' not found.` }],
+          isError: true,
+        };
+      }
+
+      if (!response.ok) {
+        throw new Error(`API returned status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify(data, null, 2),
+        }],
+      };
+    } catch (error: any) {
+      return {
+        content: [{ type: "text", text: `Error looking up CVE: ${error.message}` }],
+        isError: true,
+      };
+    }
+  }
+);
+
 // ─── Start Server ────────────────────────────────────────────────────────────
 async function main() {
   const transport = new StdioServerTransport();
@@ -266,7 +306,9 @@ async function main() {
   console.error("🔐 security-audit-mcp server running on stdio");
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== "test") {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
