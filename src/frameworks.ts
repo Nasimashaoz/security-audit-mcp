@@ -1,6 +1,117 @@
 import type { Framework } from "./types.js";
 
 export const FRAMEWORKS: Record<string, Framework> = {
+  "pci-dss": {
+    name: "PCI-DSS",
+    version: "4.0",
+    description: "Payment Card Industry Data Security Standard. Required for any organization that handles branded credit cards.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are network security controls (NSCs) installed and maintained?", risk: "CRITICAL" },
+      { id: "Req-2", title: "Apply Secure Configurations to All System Components", description: "Are secure configurations applied to all system components? Are vendor-supplied defaults changed?", risk: "HIGH" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored account data protected?", risk: "CRITICAL" },
+      { id: "Req-4", title: "Protect Cardholder Data with Strong Cryptography", description: "Is cardholder data protected with strong cryptography during transmission over open, public networks?", risk: "CRITICAL" },
+      { id: "Req-5", title: "Protect All Systems and Networks from Malicious Software", description: "Are all systems and networks protected from malicious software? Are anti-malware programs updated regularly?", risk: "HIGH" },
+      { id: "Req-6", title: "Develop and Maintain Secure Systems and Software", description: "Are secure systems and software developed and maintained? Are vulnerabilities identified and addressed?", risk: "HIGH" },
+      { id: "Req-7", title: "Restrict Access to System Components and Cardholder Data", description: "Is access to system components and cardholder data restricted by business need to know?", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Are users identified and is access to system components authenticated?", risk: "HIGH" },
+      { id: "Req-9", title: "Restrict Physical Access to Cardholder Data", description: "Is physical access to cardholder data restricted?", risk: "MEDIUM" },
+      { id: "Req-10", title: "Log and Monitor All Access", description: "Are all access to system components and cardholder data logged and monitored?", risk: "HIGH" },
+      { id: "Req-11", title: "Test Security of Systems and Networks Regularly", description: "Is the security of systems and networks tested regularly?", risk: "HIGH" },
+      { id: "Req-12", title: "Support Information Security with Organizational Policies and Programs", description: "Is information security supported with organizational policies and programs?", risk: "MEDIUM" }
+    ]
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017 Trust Services Criteria",
+    description: "Service Organization Control 2. Framework for managing customer data based on five Trust Services Criteria.",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "Does the organization demonstrate a commitment to integrity and ethical values?", risk: "HIGH" },
+      { id: "CC2", title: "Communication and Information", description: "Does the organization internally communicate information, including objectives and responsibilities for internal control, necessary to support the functioning of internal control?", risk: "MEDIUM" },
+      { id: "CC3", title: "Risk Assessment", description: "Does the organization specify objectives with sufficient clarity to enable the identification and assessment of risks relating to objectives?", risk: "HIGH" },
+      { id: "CC4", title: "Monitoring Activities", description: "Does the organization select, develop, and perform ongoing and/or separate evaluations to ascertain whether the components of internal control are present and functioning?", risk: "HIGH" },
+      { id: "CC5", title: "Control Activities", description: "Does the organization select and develop control activities that contribute to the mitigation of risks to the achievement of objectives to acceptable levels?", risk: "HIGH" },
+      { id: "CC6", title: "Logical and Physical Access Controls", description: "Does the organization implement logical access security software, infrastructure, and architectures over protected information assets to protect them from security events to meet the entity's objectives?", risk: "CRITICAL" },
+      { id: "CC7", title: "System Operations", description: "Does the organization use detection and monitoring procedures to identify (1) changes to configurations that result in the introduction of new vulnerabilities, and (2) susceptibilities to newly discovered vulnerabilities?", risk: "HIGH" },
+      { id: "CC8", title: "Change Management", description: "Does the organization authorize, design, develop or acquire, configure, document, test, approve, and implement changes to infrastructure, data, software, and procedures to meet its objectives?", risk: "MEDIUM" },
+      { id: "CC9", title: "Risk Mitigation", description: "Does the organization identify, select, and develop risk mitigation activities for risks arising from potential business disruptions?", risk: "HIGH" }
+    ]
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "45 CFR Part 160 and Subparts A and C of Part 164",
+    description: "Health Insurance Portability and Accountability Act. National standards to protect individuals' electronic personal health information (ePHI).",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Implement policies and procedures to prevent, detect, contain, and correct security violations (Risk Analysis, Risk Management, Sanction Policy, Information System Activity Review).", risk: "HIGH" },
+      { id: "164.308(a)(2)", title: "Assigned Security Responsibility", description: "Identify the security official who is responsible for the development and implementation of the policies and procedures required by this subpart for the covered entity or business associate.", risk: "MEDIUM" },
+      { id: "164.308(a)(3)", title: "Workforce Security", description: "Implement policies and procedures to ensure that all members of its workforce have appropriate access to electronic protected health information, as provided under paragraph (a)(4) of this section, and to prevent those workforce members who do not have access under paragraph (a)(4) of this section from obtaining access to electronic protected health information.", risk: "HIGH" },
+      { id: "164.308(a)(4)", title: "Information Access Management", description: "Implement policies and procedures for authorizing access to electronic protected health information that are consistent with the applicable requirements of subpart E of this part.", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Implement a security awareness and training program for all members of its workforce (including management).", risk: "MEDIUM" },
+      { id: "164.308(a)(6)", title: "Security Incident Procedures", description: "Implement policies and procedures to address security incidents.", risk: "HIGH" },
+      { id: "164.308(a)(7)", title: "Contingency Plan", description: "Establish (and implement as needed) policies and procedures for responding to an emergency or other occurrence (for example, fire, vandalism, system failure, and natural disaster) that damages systems that contain electronic protected health information.", risk: "HIGH" },
+      { id: "164.308(a)(8)", title: "Evaluation", description: "Perform a periodic technical and nontechnical evaluation, based initially upon the standards implemented under this rule and, subsequently, in response to environmental or operational changes affecting the security of electronic protected health information.", risk: "MEDIUM" },
+      { id: "164.310(a)(1)", title: "Facility Access Controls", description: "Implement policies and procedures to limit physical access to its electronic information systems and the facility or facilities in which they are housed, while ensuring that properly authorized access is allowed.", risk: "MEDIUM" },
+      { id: "164.310(b)", title: "Workstation Use", description: "Implement policies and procedures that specify the proper functions to be performed, the manner in which those functions are to be performed, and the physical attributes of the surroundings of a specific workstation or class of workstation that can access electronic protected health information.", risk: "LOW" },
+      { id: "164.310(c)", title: "Workstation Security", description: "Implement physical safeguards for all workstations that access electronic protected health information, to restrict access to authorized users.", risk: "MEDIUM" },
+      { id: "164.310(d)(1)", title: "Device and Media Controls", description: "Implement policies and procedures that govern the receipt and removal of hardware and electronic media that contain electronic protected health information into and out of a facility, and the movement of these items within the facility.", risk: "MEDIUM" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Implement technical policies and procedures for electronic information systems that maintain electronic protected health information to allow access only to those persons or software programs that have been granted access rights as specified in § 164.308(a)(4).", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use electronic protected health information.", risk: "HIGH" },
+      { id: "164.312(c)(1)", title: "Integrity", description: "Implement policies and procedures to protect electronic protected health information from improper alteration or destruction.", risk: "HIGH" },
+      { id: "164.312(d)", title: "Person or Entity Authentication", description: "Implement procedures to verify that a person or entity seeking access to electronic protected health information is the one claimed.", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Implement technical security measures to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network.", risk: "CRITICAL" }
+    ]
+  },
+  "cis-v8": {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Controls. A prioritized set of safeguards to mitigate the most prevalent cyber attacks.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Actively manage (inventory, track, and correct) all enterprise assets (end-user devices, including portable and mobile; network devices; non-computing/Internet of Things (IoT) devices; and servers) connected to the infrastructure physically, virtually, remotely, and those within cloud environments, to accurately know the totality of assets that need to be monitored and protected within the enterprise.", risk: "HIGH" },
+      { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Actively manage (inventory, track, and correct) all software (operating systems and applications) on the network so that only authorized software is installed and can execute, and that unauthorized and unmanaged software is found and prevented from installation or execution.", risk: "HIGH" },
+      { id: "CIS-3", title: "Data Protection", description: "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration of Enterprise Assets and Software", description: "Establish and maintain the secure configuration of enterprise assets (end-user devices, including portable and mobile; network devices; non-computing/IoT devices; and servers) and software (operating systems and applications).", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Use processes and tools to assign and manage authorization to credentials for user accounts, including administrator accounts, as well as service accounts, to enterprise assets and software.", risk: "HIGH" },
+      { id: "CIS-6", title: "Access Control Management", description: "Use processes and tools to create, assign, manage, and revoke access credentials and privileges for user, administrator, and service accounts for enterprise assets and software.", risk: "CRITICAL" },
+      { id: "CIS-7", title: "Continuous Vulnerability Management", description: "Develop a plan to continuously assess and track vulnerabilities on all enterprise assets within the enterprise's infrastructure, in order to remediate, and minimize, the window of opportunity for attackers. Monitor public and private industry sources for new threat and vulnerability information.", risk: "HIGH" },
+      { id: "CIS-8", title: "Audit Log Management", description: "Collect, alert, review, and retain audit logs of events that could help detect, understand, or recover from an attack.", risk: "HIGH" },
+      { id: "CIS-9", title: "Email and Web Browser Protections", description: "Improve protections and detections of threats from email and web vectors, as these are opportunities for attackers to manipulate human behavior through direct engagement.", risk: "MEDIUM" },
+      { id: "CIS-10", title: "Malware Defenses", description: "Prevent or control the installation, spread, and execution of malicious applications, code, or scripts on enterprise assets.", risk: "HIGH" },
+      { id: "CIS-11", title: "Data Recovery", description: "Establish and maintain data recovery practices sufficient to restore in-scope enterprise assets to a pre-incident and trusted state.", risk: "HIGH" },
+      { id: "CIS-12", title: "Network Infrastructure Management", description: "Establish, implement, and actively manage (track, report, correct) network devices, in order to prevent attackers from exploiting vulnerable network services and access points.", risk: "HIGH" },
+      { id: "CIS-13", title: "Network Monitoring and Defense", description: "Operate processes and tooling to establish and maintain comprehensive network monitoring and defense against security threats across the enterprise's network infrastructure and user base.", risk: "HIGH" },
+      { id: "CIS-14", title: "Security Awareness and Skills Training", description: "Establish and maintain a security awareness program to influence behavior among the workforce to be security conscious and properly skilled to reduce cybersecurity risks to the enterprise.", risk: "MEDIUM" },
+      { id: "CIS-15", title: "Service Provider Management", description: "Develop a process to evaluate service providers who hold sensitive data, or are responsible for an enterprise's critical IT platforms or processes, to ensure these providers are protecting those platforms and data appropriately.", risk: "MEDIUM" },
+      { id: "CIS-16", title: "Application Software Security", description: "Manage the security life cycle of all in-house developed and hosted software in order to prevent, detect, and remediate security weaknesses before they can impact the enterprise.", risk: "HIGH" },
+      { id: "CIS-17", title: "Incident Response Management", description: "Establish a program to develop and maintain an incident response capability (e.g., policies, plans, procedures, defined roles, training, and communications) to prepare, detect, and quickly respond to an attack.", risk: "HIGH" },
+      { id: "CIS-18", title: "Penetration Testing", description: "Test the effectiveness and resiliency of enterprise assets through identifying and exploiting vulnerabilities in controls (simulating the objectives and actions of an attacker).", risk: "MEDIUM" }
+    ]
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation. EU regulation on data protection and privacy.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing of personal data", description: "Is personal data processed lawfully, fairly and in a transparent manner? Is it collected for specified, explicit and legitimate purposes? Is it adequate, relevant and limited to what is necessary? Is it accurate and, where necessary, kept up to date? Is it kept in a form which permits identification of data subjects for no longer than is necessary? Is it processed in a manner that ensures appropriate security of the personal data?", risk: "CRITICAL" },
+      { id: "Art-6", title: "Lawfulness of processing", description: "Is there a lawful basis for processing personal data (e.g., consent, contract, legal obligation, vital interests, public task, legitimate interests)?", risk: "HIGH" },
+      { id: "Art-7", title: "Conditions for consent", description: "Where processing is based on consent, can the controller demonstrate that the data subject has consented to processing? Is the request for consent presented in a manner which is clearly distinguishable from the other matters? Does the data subject have the right to withdraw his or her consent at any time?", risk: "HIGH" },
+      { id: "Art-9", title: "Processing of special categories of personal data", description: "Is the processing of personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, or trade union membership, and the processing of genetic data, biometric data for the purpose of uniquely identifying a natural person, data concerning health or data concerning a natural person's sex life or sexual orientation prohibited, unless exceptions apply?", risk: "CRITICAL" },
+      { id: "Art-12", title: "Transparent information, communication and modalities for the exercise of the rights of the data subject", description: "Does the controller take appropriate measures to provide any information referred to in Articles 13 and 14 and any communication under Articles 15 to 22 and 34 relating to processing to the data subject in a concise, transparent, intelligible and easily accessible form, using clear and plain language?", risk: "MEDIUM" },
+      { id: "Art-15", title: "Right of access by the data subject", description: "Does the data subject have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data?", risk: "HIGH" },
+      { id: "Art-16", title: "Right to rectification", description: "Does the data subject have the right to obtain from the controller without undue delay the rectification of inaccurate personal data concerning him or her?", risk: "MEDIUM" },
+      { id: "Art-17", title: "Right to erasure ('right to be forgotten')", description: "Does the data subject have the right to obtain from the controller the erasure of personal data concerning him or her without undue delay?", risk: "HIGH" },
+      { id: "Art-18", title: "Right to restriction of processing", description: "Does the data subject have the right to obtain from the controller restriction of processing?", risk: "MEDIUM" },
+      { id: "Art-20", title: "Right to data portability", description: "Does the data subject have the right to receive the personal data concerning him or her, which he or she has provided to a controller, in a structured, commonly used and machine-readable format and have the right to transmit those data to another controller?", risk: "MEDIUM" },
+      { id: "Art-21", title: "Right to object", description: "Does the data subject have the right to object, on grounds relating to his or her particular situation, at any time to processing of personal data concerning him or her?", risk: "HIGH" },
+      { id: "Art-24", title: "Responsibility of the controller", description: "Taking into account the nature, scope, context and purposes of processing as well as the risks of varying likelihood and severity for the rights and freedoms of natural persons, does the controller implement appropriate technical and organisational measures to ensure and to be able to demonstrate that processing is performed in accordance with this Regulation?", risk: "HIGH" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "Does the controller implement appropriate technical and organisational measures, such as pseudonymisation, which are designed to implement data-protection principles, such as data minimisation, in an effective manner and to integrate the necessary safeguards into the processing in order to meet the requirements of this Regulation and protect the rights of data subjects?", risk: "HIGH" },
+      { id: "Art-28", title: "Processor", description: "Where processing is to be carried out on behalf of a controller, does the controller use only processors providing sufficient guarantees to implement appropriate technical and organisational measures in such a manner that processing will meet the requirements of this Regulation and ensure the protection of the rights of the data subject?", risk: "HIGH" },
+      { id: "Art-30", title: "Records of processing activities", description: "Does each controller and, where applicable, the controller's representative, maintain a record of processing activities under its responsibility?", risk: "MEDIUM" },
+      { id: "Art-32", title: "Security of processing", description: "Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, do the controller and the processor implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach to the supervisory authority", description: "In the case of a personal data breach, does the controller without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons?", risk: "HIGH" },
+      { id: "Art-34", title: "Communication of a personal data breach to the data subject", description: "When the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons, does the controller communicate the personal data breach to the data subject without undue delay?", risk: "HIGH" },
+      { id: "Art-35", title: "Data protection impact assessment", description: "Where a type of processing in particular using new technologies, and taking into account the nature, scope, context and purposes of the processing, is likely to result in a high risk to the rights and freedoms of natural persons, does the controller, prior to the processing, carry out an assessment of the impact of the envisaged processing operations on the protection of personal data?", risk: "HIGH" },
+      { id: "Art-37", title: "Designation of the data protection officer", description: "Do the controller and the processor designate a data protection officer in any case where required by Article 37?", risk: "MEDIUM" }
+    ]
+  },
   owasp: {
     name: "OWASP Top 10",
     version: "2021",

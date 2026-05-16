@@ -13,7 +13,7 @@ import { z } from "zod";
 import { FRAMEWORKS } from "./frameworks.js";
 import type { AuditSession, FrameworkItem } from "./types.js";
 
-const server = new McpServer({
+export const server = new McpServer({
   name: "security-audit-mcp",
   version: "1.0.0",
   description: "AI-powered security audit tools for OWASP, NIST, and ISO 27001",
@@ -45,12 +45,14 @@ server.tool(
 );
 
 // ─── Tool: get_framework ─────────────────────────────────────────────────────
+const frameworkIds = Object.keys(FRAMEWORKS) as [string, ...string[]];
+
 server.tool(
   "get_framework",
   "Get the full checklist for a specific security framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]).describe(
-      "Framework ID: owasp | nist | iso27001"
+    framework: z.enum(frameworkIds).describe(
+      `Framework ID: ${frameworkIds.join(" | ")}`
     ),
   },
   async ({ framework }) => {
@@ -76,7 +78,7 @@ server.tool(
   "Record a pass/fail/skip result for a specific audit control item",
   {
     sessionId: z.string().describe("Unique audit session ID (create any string)"),
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: z.enum(frameworkIds),
     itemId: z.string().describe("Control ID e.g. A01, AC-2, A.5.1"),
     status: z.enum(["pass", "fail", "skip"]).describe("Audit result"),
     notes: z.string().optional().describe("Optional notes or remediation steps"),
@@ -202,7 +204,7 @@ server.tool(
   "get_risk_summary",
   "Get a breakdown of risks by severity level for a framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: z.enum(frameworkIds),
   },
   async ({ framework }) => {
     const fw = FRAMEWORKS[framework];
@@ -227,7 +229,7 @@ server.tool(
   "Search for security controls by keyword across all frameworks",
   {
     query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
-    framework: z.enum(["owasp", "nist", "iso27001", "all"]).default("all"),
+    framework: z.enum([...frameworkIds, "all"] as [string, ...string[]]).default("all"),
   },
   async ({ query, framework }) => {
     const q = query.toLowerCase();
@@ -259,14 +261,70 @@ server.tool(
   }
 );
 
+// ─── Tool: cve_lookup ────────────────────────────────────────────────────────
+server.tool(
+  "cve_lookup",
+  "Look up details for a Common Vulnerabilities and Exposures (CVE) identifier",
+  {
+    cveId: z.string().describe("CVE ID e.g. CVE-2021-44228"),
+  },
+  async ({ cveId }) => {
+    try {
+      const response = await fetch(`https://cveawg.mitre.org/api/cve/${cveId}`);
+      if (!response.ok) {
+        if (response.status === 404) {
+          return {
+            content: [{ type: "text", text: `CVE '${cveId}' not found.` }],
+            isError: true,
+          };
+        }
+        return {
+          content: [{ type: "text", text: `Failed to fetch CVE data: ${response.statusText}` }],
+          isError: true,
+        };
+      }
+
+      const data = await response.json();
+      const metrics = data?.containers?.cna?.metrics?.[0]?.cvssV3_1 ||
+                      data?.containers?.cna?.metrics?.[0]?.cvssV3_0 ||
+                      data?.containers?.cna?.metrics?.[0]?.cvssV2_0 || null;
+
+      const result = {
+        cveId: data?.cveMetadata?.cveId,
+        title: data?.containers?.cna?.title || "No title provided",
+        descriptions: data?.containers?.cna?.descriptions?.map((d: any) => d.value) || [],
+        cvssScore: metrics?.baseScore || "N/A",
+        cvssSeverity: metrics?.baseSeverity || "N/A",
+        state: data?.cveMetadata?.state,
+        published: data?.cveMetadata?.datePublished,
+        updated: data?.cveMetadata?.dateUpdated,
+      };
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify(result, null, 2),
+        }],
+      };
+    } catch (error: any) {
+      return {
+        content: [{ type: "text", text: `Error fetching CVE data: ${error.message}` }],
+        isError: true,
+      };
+    }
+  }
+);
+
 // ─── Start Server ────────────────────────────────────────────────────────────
-async function main() {
+export async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("🔐 security-audit-mcp server running on stdio");
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== "test") {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
