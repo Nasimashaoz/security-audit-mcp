@@ -227,7 +227,7 @@ server.tool(
   "Search for security controls by keyword across all frameworks",
   {
     query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
-    framework: z.enum([...Object.keys(FRAMEWORKS), "all"] as [string, ...string[]]).default("all"),
+    framework: z.enum([...Object.keys(FRAMEWORKS), "all"] as unknown as [string, ...string[]]).default("all"),
   },
   async ({ query, framework }) => {
     const q = query.toLowerCase();
