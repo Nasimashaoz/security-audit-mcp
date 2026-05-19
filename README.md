@@ -179,13 +179,13 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
-- [ ] CVE lookup integration
+- [x] PCI-DSS checklist
+- [x] SOC 2 Type II controls
+- [x] HIPAA Security Rule
+- [x] CIS Controls v8
+- [x] CVE lookup integration
+- [x] CI/CD pipeline integration (GitHub Actions)
 - [ ] Automated codebase scanning
-- [ ] CI/CD pipeline integration (GitHub Actions)
 
 ---
 

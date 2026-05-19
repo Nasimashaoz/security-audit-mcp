@@ -57,4 +57,52 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard, required for handling credit card information.",
+    items: [
+      { id: "1.1", title: "Network Security Controls", description: "Are network security controls configured and maintained to protect cardholder data?", risk: "CRITICAL" },
+      { id: "3.2", title: "Protect Stored Account Data", description: "Is storage of account data kept to a minimum and securely encrypted?", risk: "CRITICAL" },
+      { id: "4.1", title: "Protect Data in Transit", description: "Is strong cryptography used to protect cardholder data during transmission over open, public networks?", risk: "CRITICAL" },
+      { id: "6.2", title: "Develop Secure Software", description: "Are software vulnerabilities addressed and secure software development practices followed?", risk: "HIGH" },
+      { id: "8.2", title: "User Authentication Management", description: "Are all users assigned a unique ID and is multi-factor authentication (MFA) used for secure access?", risk: "CRITICAL" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2",
+    version: "Type II",
+    description: "Service Organization Control 2, focusing on security, availability, processing integrity, confidentiality, and privacy.",
+    items: [
+      { id: "CC6.1", title: "Logical Access Security", description: "Does the entity implement logical access security software, infrastructure, and architectures over protected information assets to protect them from security events?", risk: "CRITICAL" },
+      { id: "CC6.6", title: "Boundary Protection", description: "Does the entity implement logical access security measures to protect against threats from sources outside its system boundaries?", risk: "HIGH" },
+      { id: "CC7.1", title: "Vulnerability Scans and Penetration Tests", description: "Does the entity conduct vulnerability scans and penetration tests to detect vulnerabilities?", risk: "HIGH" },
+      { id: "CC7.2", title: "Security Event Monitoring", description: "Does the entity monitor system components and the operation of those components for anomalies that are indicative of malicious acts, natural disasters, and errors affecting the entity's ability to meet its objectives?", risk: "HIGH" },
+      { id: "CC8.1", title: "Change Management", description: "Does the entity authorize, design, develop or acquire, configure, document, test, approve, and implement changes to infrastructure, data, software, and procedures?", risk: "MEDIUM" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA",
+    version: "Security Rule",
+    description: "Health Insurance Portability and Accountability Act, establishing national standards to protect individuals' medical records.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Is there a process to prevent, detect, contain, and correct security violations (including risk analysis and risk management)?", risk: "CRITICAL" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Is there a security awareness and training program for all members of the workforce?", risk: "MEDIUM" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are technical policies and procedures implemented for electronic information systems that maintain electronic protected health information to allow access only to those persons or software programs that have been granted access rights?", risk: "CRITICAL" },
+      { id: "164.312(c)(1)", title: "Integrity", description: "Are policies and procedures implemented to protect electronic protected health information from improper alteration or destruction?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are technical security measures implemented to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network?", risk: "CRITICAL" }
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Controls, a prioritized set of actions to protect organizations and data from known cyber attack vectors.",
+    items: [
+      { id: "1", title: "Inventory and Control of Enterprise Assets", description: "Actively manage (inventory, track, and correct) all enterprise assets (end-user devices, including portable and mobile; network devices; non-computing/Internet of Things (IoT) devices; and servers) connected to the infrastructure physically, virtually, remotely, and those within cloud environments.", risk: "HIGH" },
+      { id: "3", title: "Data Protection", description: "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.", risk: "CRITICAL" },
+      { id: "4", title: "Secure Configuration of Enterprise Assets and Software", description: "Establish and maintain the secure configuration of enterprise assets and software.", risk: "HIGH" },
+      { id: "5", title: "Account Management", description: "Use processes and tools to assign and manage authorization to credentials for user accounts, including administrator accounts, as well as service accounts, to enterprise assets and software.", risk: "CRITICAL" },
+      { id: "16", title: "Application Software Security", description: "Manage the security life cycle of all in-house developed and hosted software to prevent, detect, and remediate security weaknesses before they can impact the enterprise.", risk: "HIGH" }
+    ],
+  },
 };
