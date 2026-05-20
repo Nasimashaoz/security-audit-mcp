@@ -57,4 +57,56 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard, required for entities that store, process, or transmit cardholder data.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are firewalls configured and maintained to protect cardholder data?", risk: "HIGH" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored cardholder data encrypted, truncated, masked, or hashed?", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Is multi-factor authentication implemented for all access to the CDE?", risk: "CRITICAL" },
+      { id: "Req-10", title: "Log and Monitor All Access", description: "Are audit logs implemented to link all access to system components to individual users?", risk: "HIGH" },
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017",
+    description: "Service Organization Control 2, based on AICPA Trust Services Criteria (Security, Availability, Processing Integrity, Confidentiality, Privacy).",
+    items: [
+      { id: "CC6.1", title: "Logical Access Security", description: "Does the entity implement logical access security software, infrastructure, and architectures over protected information assets?", risk: "HIGH" },
+      { id: "CC7.1", title: "System Monitoring", description: "Are systems monitored for anomalies that could indicate potential security events?", risk: "HIGH" },
+      { id: "CC8.1", title: "Change Management", description: "Are system changes authorized, tested, and approved before migration to production?", risk: "MEDIUM" },
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "45 CFR Part 160 and 164",
+    description: "National standards to protect individuals' electronic personal health information (ePHI).",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Is a risk analysis conducted to assess potential risks to ePHI?", risk: "HIGH" },
+      { id: "164.312(a)(2)(iv)", title: "Encryption and Decryption", description: "Is a mechanism implemented to encrypt and decrypt ePHI?", risk: "CRITICAL" },
+      { id: "164.312(d)", title: "Person or Entity Authentication", description: "Are procedures implemented to verify that a person or entity seeking access to ePHI is the one claimed?", risk: "HIGH" },
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Prioritized set of cybersecurity best practices and defensive actions.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Are all enterprise assets actively managed?", risk: "HIGH" },
+      { id: "CIS-4", title: "Secure Configuration of Assets", description: "Are secure configurations maintained for enterprise assets and software?", risk: "HIGH" },
+      { id: "CIS-6", title: "Access Control Management", description: "Are processes and tools used to create, assign, manage, and revoke access credentials?", risk: "CRITICAL" },
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation for data protection and privacy in the EU.",
+    items: [
+      { id: "Art-25", title: "Data Protection by Design and by Default", description: "Are data protection principles integrated into the system design?", risk: "HIGH" },
+      { id: "Art-32", title: "Security of Processing", description: "Is there a level of security appropriate to the risk, including encryption of personal data?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a Personal Data Breach", description: "Is there a process to notify authorities within 72 hours of a breach?", risk: "HIGH" },
+    ],
+  },
 };
