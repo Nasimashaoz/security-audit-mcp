@@ -49,8 +49,8 @@ server.tool(
   "get_framework",
   "Get the full checklist for a specific security framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]).describe(
-      "Framework ID: owasp | nist | iso27001"
+    framework: z.enum(Object.keys(FRAMEWORKS) as [string, ...string[]]).describe(
+      `Framework ID: ${Object.keys(FRAMEWORKS).join(" | ")}`
     ),
   },
   async ({ framework }) => {
@@ -76,7 +76,7 @@ server.tool(
   "Record a pass/fail/skip result for a specific audit control item",
   {
     sessionId: z.string().describe("Unique audit session ID (create any string)"),
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: z.enum(Object.keys(FRAMEWORKS) as [string, ...string[]]),
     itemId: z.string().describe("Control ID e.g. A01, AC-2, A.5.1"),
     status: z.enum(["pass", "fail", "skip"]).describe("Audit result"),
     notes: z.string().optional().describe("Optional notes or remediation steps"),
@@ -202,7 +202,7 @@ server.tool(
   "get_risk_summary",
   "Get a breakdown of risks by severity level for a framework",
   {
-    framework: z.enum(["owasp", "nist", "iso27001"]),
+    framework: z.enum(Object.keys(FRAMEWORKS) as [string, ...string[]]),
   },
   async ({ framework }) => {
     const fw = FRAMEWORKS[framework];
@@ -227,7 +227,7 @@ server.tool(
   "Search for security controls by keyword across all frameworks",
   {
     query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
-    framework: z.enum(["owasp", "nist", "iso27001", "all"]).default("all"),
+    framework: z.enum([...Object.keys(FRAMEWORKS), "all"] as unknown as [string, ...string[]]).default("all"),
   },
   async ({ query, framework }) => {
     const q = query.toLowerCase();
@@ -259,6 +259,63 @@ server.tool(
   }
 );
 
+// ─── Tool: cve_lookup ────────────────────────────────────────────────────────
+server.tool(
+  "cve_lookup",
+  "Look up details for a specific CVE from the official MITRE API",
+  {
+    cveId: z.string().describe("The CVE ID to look up, e.g., 'CVE-2021-44228'"),
+  },
+  async ({ cveId }) => {
+    try {
+      const response = await fetch(`https://cveawg.mitre.org/api/cve/${cveId}`);
+      if (!response.ok) {
+        if (response.status === 404) {
+          return {
+            content: [{ type: "text", text: `CVE '${cveId}' not found.` }],
+            isError: true,
+          };
+        }
+        throw new Error(`Failed to fetch CVE data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      const cveMetadata = data.cveMetadata;
+      const containers = data.containers?.cna;
+
+      const title = containers?.title || "No title provided";
+      const descriptions = containers?.descriptions?.map((d: any) => d.value).join("\n") || "No description provided";
+      const metrics = containers?.metrics || [];
+      const affected = containers?.affected?.map((a: any) => `${a.vendor} ${a.product}`).join(", ") || "Unknown";
+
+      const summary = {
+        id: cveMetadata.cveId,
+        title,
+        descriptions,
+        affected,
+        metrics,
+        state: cveMetadata.state,
+        published: cveMetadata.datePublished,
+        updated: cveMetadata.dateUpdated,
+      };
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify(summary, null, 2),
+        }],
+      };
+    } catch (error: any) {
+      return {
+        content: [{ type: "text", text: `Error looking up CVE: ${error.message}` }],
+        isError: true,
+      };
+    }
+  }
+);
+
+
 // ─── Start Server ────────────────────────────────────────────────────────────
 async function main() {
   const transport = new StdioServerTransport();
@@ -266,7 +323,11 @@ async function main() {
   console.error("🔐 security-audit-mcp server running on stdio");
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== "test") {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
+
+export { server, FRAMEWORKS };
