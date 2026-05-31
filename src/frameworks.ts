@@ -57,4 +57,62 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+
+  pci_dss: {
+    name: "PCI-DSS",
+    version: "4.0",
+    description: "Payment Card Industry Data Security Standard for protecting cardholder data.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are network security controls (firewalls) installed and maintained to protect cardholder data?", risk: "CRITICAL" },
+      { id: "Req-2", title: "Apply Secure Configurations to All System Components", description: "Are default passwords changed and unnecessary services disabled?", risk: "HIGH" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored cardholder data encrypted or truncated?", risk: "CRITICAL" },
+      { id: "Req-4", title: "Protect Cryptography of Cardholder Data During Transmission", description: "Is strong cryptography used during transmission over open, public networks?", risk: "CRITICAL" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access to System Components", description: "Are users uniquely identified and MFA applied for remote access?", risk: "HIGH" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2",
+    version: "Type II",
+    description: "Service Organization Control 2, focusing on Security, Availability, Processing Integrity, Confidentiality, and Privacy.",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "Are appropriate organizational policies and procedures in place to support internal control?", risk: "HIGH" },
+      { id: "CC6", title: "Logical and Physical Access Controls", description: "Are logical access controls implemented to restrict unauthorized access to systems and data?", risk: "CRITICAL" },
+      { id: "CC7", title: "System Operations", description: "Is the system continuously monitored for operational anomalies and security events?", risk: "HIGH" },
+      { id: "CC8", title: "Change Management", description: "Are system changes properly authorized, tested, and approved before deployment?", risk: "MEDIUM" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "Current",
+    description: "Health Insurance Portability and Accountability Act, ensuring protection of electronic protected health information (ePHI).",
+    items: [
+      { id: "164.308", title: "Administrative Safeguards", description: "Are risk analyses conducted and security management processes implemented?", risk: "HIGH" },
+      { id: "164.310", title: "Physical Safeguards", description: "Are facility access controls and workstation security policies in place?", risk: "MEDIUM" },
+      { id: "164.312", title: "Technical Safeguards", description: "Are access controls, audit controls, and transmission security (encryption) implemented?", risk: "CRITICAL" }
+    ],
+  },
+  cis_v8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Critical Security Controls, a prioritized set of actions to protect organizations.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Are all enterprise assets actively managed and inventoried?", risk: "MEDIUM" },
+      { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Are all software assets actively managed and inventoried?", risk: "MEDIUM" },
+      { id: "CIS-3", title: "Data Protection", description: "Are processes and technical controls established to identify, classify, and securely handle data?", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration of Enterprise Assets and Software", description: "Are secure configurations established and maintained for all enterprise assets and software?", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Are processes and tools used to assign and manage authorization to credentials for user accounts?", risk: "HIGH" },
+      { id: "CIS-6", title: "Access Control Management", description: "Are processes and tools used to create, assign, manage, and revoke access credentials and privileges?", risk: "HIGH" }
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation, the EU law on data protection and privacy.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing of personal data", description: "Is personal data processed lawfully, fairly, and in a transparent manner?", risk: "HIGH" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "Are technical and organizational measures designed to implement data-protection principles?", risk: "HIGH" },
+      { id: "Art-32", title: "Security of processing", description: "Is appropriate security of the personal data ensured, including protection against unauthorized or unlawful processing?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach", description: "Are processes in place to notify the supervisory authority of a personal data breach within 72 hours?", risk: "HIGH" }
+    ],
+  },
 };
