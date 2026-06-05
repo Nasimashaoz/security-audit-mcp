@@ -57,4 +57,84 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard for environments that handle credit card data.",
+    items: [
+      { id: "Req-1", title: "Network Security Controls", description: "Install and maintain network security controls.", risk: "HIGH" },
+      { id: "Req-2", title: "Secure Configurations", description: "Apply secure configurations to all system components.", risk: "HIGH" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Protect stored account data and encrypt where applicable.", risk: "CRITICAL" },
+      { id: "Req-4", title: "Cryptography in Transit", description: "Protect cardholder data with strong cryptography during transmission over open, public networks.", risk: "CRITICAL" },
+      { id: "Req-5", title: "Malicious Software Protection", description: "Protect all systems and networks from malicious software.", risk: "HIGH" },
+      { id: "Req-6", title: "Secure Systems and Software", description: "Develop and maintain secure systems and software.", risk: "HIGH" },
+      { id: "Req-7", title: "Restrict Access", description: "Restrict access to system components and cardholder data by business need to know.", risk: "HIGH" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Identify users and authenticate access to system components.", risk: "CRITICAL" },
+      { id: "Req-9", title: "Physical Access Restrictions", description: "Restrict physical access to cardholder data.", risk: "MEDIUM" },
+      { id: "Req-10", title: "Log and Monitor Access", description: "Log and monitor all access to system components and cardholder data.", risk: "HIGH" },
+      { id: "Req-11", title: "Test Security Regularly", description: "Test security of systems and networks regularly.", risk: "HIGH" },
+      { id: "Req-12", title: "Information Security Policies", description: "Support information security with organizational policies and programs.", risk: "MEDIUM" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017 TSC",
+    description: "Service Organization Control 2, focusing on Security, Availability, Processing Integrity, Confidentiality, and Privacy.",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "Does the organization demonstrate a commitment to integrity and ethical values?", risk: "MEDIUM" },
+      { id: "CC2", title: "Communication and Information", description: "Does the organization use relevant, quality information to support the functioning of internal control?", risk: "MEDIUM" },
+      { id: "CC3", title: "Risk Assessment", description: "Does the organization specify objectives with sufficient clarity to enable the identification and assessment of risks?", risk: "HIGH" },
+      { id: "CC4", title: "Monitoring Activities", description: "Does the organization select, develop, and perform ongoing and/or separate evaluations?", risk: "HIGH" },
+      { id: "CC5", title: "Control Activities", description: "Does the organization select and develop control activities that contribute to the mitigation of risks?", risk: "HIGH" },
+      { id: "CC6", title: "Logical and Physical Access", description: "Does the organization restrict logical and physical access?", risk: "CRITICAL" },
+      { id: "CC7", title: "System Operations", description: "Does the organization use system operations to achieve its objectives?", risk: "HIGH" },
+      { id: "CC8", title: "Change Management", description: "Does the organization authorize, design, develop or acquire, configure, document, test, approve, and implement changes to infrastructure, data, software, and procedures?", risk: "HIGH" },
+      { id: "CC9", title: "Risk Mitigation", description: "Does the organization identify, select, and develop risk mitigation activities?", risk: "HIGH" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "1996/2013",
+    description: "Health Insurance Portability and Accountability Act Security Rule for protecting ePHI.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Implement policies and procedures to prevent, detect, contain, and correct security violations.", risk: "CRITICAL" },
+      { id: "164.308(a)(3)", title: "Workforce Security", description: "Implement policies and procedures to ensure that all members of its workforce have appropriate access to electronic protected health information.", risk: "HIGH" },
+      { id: "164.308(a)(4)", title: "Information Access Management", description: "Implement policies and procedures for authorizing access to electronic protected health information.", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Implement a security awareness and training program for all members of its workforce.", risk: "MEDIUM" },
+      { id: "164.308(a)(6)", title: "Security Incident Procedures", description: "Implement policies and procedures to address security incidents.", risk: "HIGH" },
+      { id: "164.308(a)(7)", title: "Contingency Plan", description: "Establish policies and procedures for responding to an emergency or other occurrence that damages systems that contain ePHI.", risk: "HIGH" },
+      { id: "164.310(a)(1)", title: "Facility Access Controls", description: "Implement policies and procedures to limit physical access to its electronic information systems.", risk: "HIGH" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Implement technical policies and procedures for electronic information systems that maintain electronic protected health information.", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems.", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Implement technical security measures to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network.", risk: "CRITICAL" }
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Critical Security Controls.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Actively manage (inventory, track, and correct) all enterprise assets connected to the infrastructure physically, virtually, remotely, and those within cloud environments.", risk: "HIGH" },
+      { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Actively manage (inventory, track, and correct) all software on the network so that only authorized software is installed and can execute.", risk: "HIGH" },
+      { id: "CIS-3", title: "Data Protection", description: "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration of Enterprise Assets and Software", description: "Establish and maintain the secure configuration of enterprise assets and software.", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Use processes and tools to assign and manage authorization to credentials for user accounts.", risk: "CRITICAL" },
+      { id: "CIS-6", title: "Access Control Management", description: "Use processes and tools to create, assign, manage, and revoke access credentials and privileges for user, administrator, and service accounts.", risk: "CRITICAL" },
+      { id: "CIS-7", title: "Continuous Vulnerability Management", description: "Develop a plan to continuously assess and track vulnerabilities on all enterprise assets within the enterprise's infrastructure.", risk: "HIGH" },
+      { id: "CIS-8", title: "Audit Log Management", description: "Collect, alert, review, and retain audit logs of events that could help detect, understand, or recover from an attack.", risk: "HIGH" }
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016",
+    description: "General Data Protection Regulation.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing of personal data", description: "Personal data shall be processed lawfully, fairly and in a transparent manner, collected for specified, explicit and legitimate purposes, adequate, relevant and limited to what is necessary, accurate, kept in a form which permits identification of data subjects for no longer than is necessary, and processed in a manner that ensures appropriate security.", risk: "CRITICAL" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "The controller shall implement appropriate technical and organisational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed.", risk: "HIGH" },
+      { id: "Art-32", title: "Security of processing", description: "The controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk.", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach to the supervisory authority", description: "In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority.", risk: "HIGH" },
+      { id: "Art-34", title: "Communication of a personal data breach to the data subject", description: "When the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons, the controller shall communicate the personal data breach to the data subject without undue delay.", risk: "HIGH" }
+    ]
+  },
+
 };
