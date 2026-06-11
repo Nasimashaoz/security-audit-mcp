@@ -57,4 +57,54 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard, required for organizations handling credit card information.",
+    items: [
+      { id: "1.1", title: "Network Security Controls", description: "Are network security controls implemented and maintained to protect the cardholder data environment?", risk: "HIGH" },
+      { id: "3.1", title: "Protect Stored Account Data", description: "Is storage of cardholder data kept to a minimum and encrypted?", risk: "CRITICAL" },
+      { id: "4.1", title: "Cryptography in Transit", description: "Is strong cryptography used to protect cardholder data during transmission over open, public networks?", risk: "CRITICAL" },
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "TSC 2017",
+    description: "Trust Services Criteria for security, availability, processing integrity, confidentiality, and privacy.",
+    items: [
+      { id: "CC1.1", title: "Control Environment", description: "Does the entity demonstrate a commitment to integrity and ethical values?", risk: "MEDIUM" },
+      { id: "CC6.1", title: "Logical Access Security", description: "Is logical access to system resources restricted to authorized individuals?", risk: "HIGH" },
+      { id: "CC6.3", title: "Access Revocation", description: "Are access rights removed promptly upon termination or change in responsibilities?", risk: "HIGH" },
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "Current",
+    description: "National standards to protect individuals' electronic personal health information (ePHI).",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Are risk analysis and risk management processes implemented?", risk: "HIGH" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are technical policies and procedures implemented to allow access only to authorized persons or software?", risk: "CRITICAL" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are technical security measures implemented to guard against unauthorized access to ePHI transmitted over a network?", risk: "CRITICAL" },
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "A prioritized set of cybersecurity best practices and defensive actions.",
+    items: [
+      { id: "1.1", title: "Establish and Maintain Detailed Enterprise Asset Inventory", description: "Is there an accurate inventory of all enterprise assets?", risk: "MEDIUM" },
+      { id: "4.1", title: "Establish and Maintain a Secure Configuration Process", description: "Are secure configuration processes established and maintained for enterprise assets?", risk: "HIGH" },
+      { id: "6.1", title: "Establish an Access Granting Process", description: "Is there a process, preferably automated, to grant access to enterprise assets?", risk: "HIGH" },
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "EU 2016/679",
+    description: "General Data Protection Regulation for data privacy in the European Union.",
+    items: [
+      { id: "Art. 25", title: "Data Protection by Design and by Default", description: "Are technical and organizational measures implemented to integrate data protection into processing activities?", risk: "HIGH" },
+      { id: "Art. 32", title: "Security of Processing", description: "Is a level of security appropriate to the risk ensured, including encryption and pseudonymization?", risk: "CRITICAL" },
+      { id: "Art. 33", title: "Notification of a Personal Data Breach", description: "Is there a process to notify the supervisory authority without undue delay after becoming aware of a personal data breach?", risk: "HIGH" },
+    ],
+  },
 };
