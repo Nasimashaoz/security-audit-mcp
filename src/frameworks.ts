@@ -57,4 +57,54 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  cis: {
+    name: "CIS Controls v8",
+    version: "v8",
+    description: "Prioritized set of actions for cyber defense.",
+    items: [
+      { id: "IG1", title: "Basic Cyber Hygiene", description: "Essential safeguards every enterprise should apply.", risk: "HIGH" },
+      { id: "IG2", title: "Broad Defense", description: "More complex safeguards for mid-sized enterprises.", risk: "MEDIUM" },
+      { id: "IG3", title: "Advanced Defense", description: "Sophisticated safeguards for large enterprises.", risk: "LOW" },
+    ],
+  },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "4.0",
+    description: "Payment Card Industry Data Security Standard.",
+    items: [
+      { id: "REQ-1", title: "Install and Maintain Network Security Controls", description: "Ensure network security controls like firewalls are in place.", risk: "CRITICAL" },
+      { id: "REQ-3", title: "Protect Stored Account Data", description: "Use encryption, hashing, masking, and truncation to protect cardholder data.", risk: "CRITICAL" },
+      { id: "REQ-8", title: "Identify Users and Authenticate Access to System Components", description: "Assign unique IDs to each person with computer access.", risk: "HIGH" },
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2023",
+    description: "Service Organization Control 2 reporting based on Trust Services Criteria.",
+    items: [
+      { id: "CC1", title: "Control Environment", description: "Commitment to integrity and ethical values.", risk: "HIGH" },
+      { id: "CC2", title: "Communication and Information", description: "Information needed for the functioning of internal control is generated.", risk: "MEDIUM" },
+      { id: "CC6", title: "Logical and Physical Access Controls", description: "Access to data, software, and systems is appropriately restricted.", risk: "CRITICAL" },
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "Current",
+    description: "Standards for the protection of electronic protected health information (ePHI).",
+    items: [
+      { id: "ADMIN", title: "Administrative Safeguards", description: "Security management processes and workforce security.", risk: "HIGH" },
+      { id: "PHYS", title: "Physical Safeguards", description: "Facility access controls and device/media controls.", risk: "MEDIUM" },
+      { id: "TECH", title: "Technical Safeguards", description: "Access controls, audit controls, and transmission security for ePHI.", risk: "CRITICAL" },
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation for data privacy in the EU.",
+    items: [
+      { id: "ART-5", title: "Principles relating to processing of personal data", description: "Lawfulness, fairness, transparency, purpose limitation.", risk: "CRITICAL" },
+      { id: "ART-25", title: "Data protection by design and by default", description: "Implement appropriate technical and organizational measures.", risk: "HIGH" },
+      { id: "ART-32", title: "Security of processing", description: "Ensure a level of security appropriate to the risk.", risk: "HIGH" },
+    ],
+  },
 };
