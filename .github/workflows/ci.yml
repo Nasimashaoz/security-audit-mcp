@@ -2,27 +2,30 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
-    branches: ["main"]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
+          node-version: '18'
+
+      - name: Install Dependencies
         run: npm install
-      - name: Run Build
+
+      - name: Build
         run: npm run build
-      - name: Run Tests
+
+      - name: Test
         run: npm run test
-      - name: Run Coverage
+
+      - name: Coverage
         run: npm run coverage

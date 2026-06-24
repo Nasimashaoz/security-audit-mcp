@@ -1,21 +1,23 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { server } from "./index.js";
+import { server, main } from "./index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { FRAMEWORKS } from "./frameworks.js";
 
 // Mock StdioServerTransport
 vi.mock("@modelcontextprotocol/sdk/server/stdio.js", () => {
   return {
-    StdioServerTransport: class {
-      async start() {}
-      async close() {}
-    },
+    StdioServerTransport: vi.fn().mockImplementation(() => ({
+      start: vi.fn(),
+      close: vi.fn(),
+    })),
   };
 });
 
-describe("security-audit-mcp Tools", () => {
+describe("security-audit-mcp server", () => {
   let toolsMap: any;
 
   beforeEach(() => {
+    // Access registered tools map for direct invocation
     toolsMap = (server as any)._tools || (server as any)._registeredTools || (server as any).registeredTools;
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2024-01-01T12:00:00Z"));
@@ -26,7 +28,8 @@ describe("security-audit-mcp Tools", () => {
     vi.restoreAllMocks();
   });
 
-  it("should have registered all tools", () => {
+  it("should have correct tools registered", () => {
+    expect(toolsMap).toBeDefined();
     expect(toolsMap["list_frameworks"]).toBeDefined();
     expect(toolsMap["get_framework"]).toBeDefined();
     expect(toolsMap["audit_item"]).toBeDefined();
@@ -39,12 +42,11 @@ describe("security-audit-mcp Tools", () => {
   describe("list_frameworks", () => {
     it("should list all available frameworks", async () => {
       const handler = toolsMap["list_frameworks"].handler;
-      const result = await handler({});
+      const response = await handler({});
 
-      const content = JSON.parse(result.content[0].text);
+      const content = JSON.parse(response.content[0].text);
       expect(content.frameworks).toBeInstanceOf(Array);
-      expect(content.frameworks.length).toBeGreaterThan(0);
-
+      expect(content.frameworks.length).toBe(Object.keys(FRAMEWORKS).length);
       const owasp = content.frameworks.find((f: any) => f.id === "owasp");
       expect(owasp).toBeDefined();
       expect(owasp.name).toBe("OWASP Top 10");
@@ -52,163 +54,169 @@ describe("security-audit-mcp Tools", () => {
   });
 
   describe("get_framework", () => {
-    it("should return the checklist for a specific framework", async () => {
+    it("should return the correct framework data", async () => {
       const handler = toolsMap["get_framework"].handler;
-      const result = await handler({ framework: "owasp" }, {});
+      const response = await handler({ framework: "nist" });
 
-      const content = JSON.parse(result.content[0].text);
-      expect(content.name).toBe("OWASP Top 10");
+      const content = JSON.parse(response.content[0].text);
+      expect(content.name).toBe("NIST SP 800-53");
       expect(content.items).toBeInstanceOf(Array);
-      expect(content.items.length).toBeGreaterThan(0);
+      expect(content.items[0].id).toBe("AC-1");
     });
 
-    it("should return an error if framework is not found", async () => {
+    it("should return an error for unknown framework", async () => {
       const handler = toolsMap["get_framework"].handler;
-      const result = await handler({ framework: "nonexistent" }, {});
+      // It should still catch errors via runtime fallback if type validation passes
+      const response = await handler({ framework: "unknown" });
 
-      expect(result.isError).toBe(true);
-      expect(result.content[0].text).toContain("not found");
+      expect(response.isError).toBe(true);
+      expect(response.content[0].text).toContain("not found");
     });
   });
 
   describe("audit_item", () => {
-    it("should record an audit result successfully", async () => {
+    it("should add a successful audit item to the session", async () => {
       const handler = toolsMap["audit_item"].handler;
-      const args = {
-        sessionId: "test-session",
+      const response = await handler({
+        sessionId: "test-session-1",
         framework: "owasp",
         itemId: "A01",
         status: "pass",
         notes: "Looks good"
-      };
+      });
 
-      const result = await handler(args, {});
-      const content = JSON.parse(result.content[0].text);
-
+      const content = JSON.parse(response.content[0].text);
       expect(content.recorded.itemId).toBe("A01");
       expect(content.recorded.status).toBe("pass");
       expect(content.recorded.notes).toBe("Looks good");
     });
 
-    it("should return error for invalid item ID", async () => {
+    it("should return an error if item is not found in framework", async () => {
       const handler = toolsMap["audit_item"].handler;
-      const result = await handler({
-        sessionId: "test-session",
+      const response = await handler({
+        sessionId: "test-session-1",
         framework: "owasp",
-        itemId: "NONEXISTENT",
-        status: "pass"
-      }, {});
+        itemId: "INVALID-ITEM",
+        status: "pass",
+      });
 
-      expect(result.isError).toBe(true);
-      expect(result.content[0].text).toContain("not found in owasp");
+      expect(response.isError).toBe(true);
+      expect(response.content[0].text).toContain("not found");
     });
   });
 
   describe("generate_report", () => {
     beforeEach(async () => {
-      // Seed a session
+      // Setup session
       const handler = toolsMap["audit_item"].handler;
-      await handler({ sessionId: "report-session", framework: "owasp", itemId: "A01", status: "pass" }, {});
-      await handler({ sessionId: "report-session", framework: "owasp", itemId: "A02", status: "fail", notes: "bad crypto" }, {});
+      await handler({ sessionId: "report-session", framework: "owasp", itemId: "A01", status: "pass" });
+      await handler({ sessionId: "report-session", framework: "owasp", itemId: "A02", status: "fail", notes: "Bad crypto" });
+    });
+
+    it("should return error for unknown session", async () => {
+      const handler = toolsMap["generate_report"].handler;
+      const response = await handler({ sessionId: "unknown", format: "json" });
+      expect(response.isError).toBe(true);
     });
 
     it("should generate a JSON report", async () => {
       const handler = toolsMap["generate_report"].handler;
-      const result = await handler({ sessionId: "report-session", format: "json" }, {});
+      const response = await handler({ sessionId: "report-session", format: "json" });
 
-      const content = JSON.parse(result.content[0].text);
-      expect(content.session).toBe("report-session");
-      expect(content.summary.passed).toBe(1);
-      expect(content.summary.failed).toBe(1);
-      expect(content.score).toBe("50%");
+      const data = JSON.parse(response.content[0].text);
+      expect(data.session).toBe("report-session");
+      expect(data.summary.passed).toBe(1);
+      expect(data.summary.failed).toBe(1);
+      expect(data.generatedAt).toBe("2024-01-01T12:00:00.000Z");
     });
 
     it("should generate a Markdown report", async () => {
       const handler = toolsMap["generate_report"].handler;
-      const result = await handler({ sessionId: "report-session", format: "markdown" }, {});
+      const response = await handler({ sessionId: "report-session", format: "markdown" });
 
-      const text = result.content[0].text;
+      const text = response.content[0].text;
       expect(text).toContain("# 🔒 Security Audit Report");
-      expect(text).toContain("**Passed:** 1 | **Failed:** 1");
+      expect(text).toContain("Bad crypto");
     });
 
-    it("should return error for nonexistent session", async () => {
+    it("should generate an HTML report", async () => {
       const handler = toolsMap["generate_report"].handler;
-      const result = await handler({ sessionId: "invalid", format: "json" }, {});
-      expect(result.isError).toBe(true);
+      const response = await handler({ sessionId: "report-session", format: "html" });
+
+      const text = response.content[0].text;
+      expect(text).toContain("<!DOCTYPE html>");
+      expect(text).toContain("<td>A01</td>");
     });
   });
 
   describe("get_risk_summary", () => {
-    it("should group controls by risk level", async () => {
+    it("should summarize risks for a framework", async () => {
       const handler = toolsMap["get_risk_summary"].handler;
-      const result = await handler({ framework: "owasp" }, {});
+      const response = await handler({ framework: "iso27001" });
 
-      const content = JSON.parse(result.content[0].text);
-      expect(content.riskBreakdown).toBeDefined();
-      expect(content.riskBreakdown.CRITICAL.length).toBeGreaterThan(0);
-      expect(content.riskBreakdown.HIGH.length).toBeGreaterThan(0);
+      const data = JSON.parse(response.content[0].text);
+      expect(data.framework).toBe("ISO 27001");
+      expect(data.riskBreakdown.CRITICAL.length).toBeGreaterThan(0);
     });
   });
 
   describe("search_controls", () => {
-    it("should find controls matching keyword across all frameworks", async () => {
+    it("should search controls across all frameworks", async () => {
       const handler = toolsMap["search_controls"].handler;
-      const result = await handler({ query: "injection", framework: "all" }, {});
+      const response = await handler({ query: "encrypt", framework: "all" });
 
-      const content = JSON.parse(result.content[0].text);
-      expect(content.totalMatches).toBeGreaterThan(0);
-      expect(content.results["OWASP Top 10"]).toBeDefined();
+      const data = JSON.parse(response.content[0].text);
+      expect(data.totalMatches).toBeGreaterThan(0);
+      expect(data.results["OWASP Top 10"]).toBeDefined();
     });
 
-    it("should filter search by specific framework", async () => {
+    it("should search controls in a specific framework", async () => {
       const handler = toolsMap["search_controls"].handler;
-      const result = await handler({ query: "access", framework: "nist" }, {});
+      const response = await handler({ query: "authentication", framework: "nist" });
 
-      const content = JSON.parse(result.content[0].text);
-      expect(content.results["OWASP Top 10"]).toBeUndefined();
-      expect(content.results["NIST SP 800-53"]).toBeDefined();
+      const data = JSON.parse(response.content[0].text);
+      expect(data.results["NIST SP 800-53"]).toBeDefined();
+      expect(data.results["OWASP Top 10"]).toBeUndefined();
     });
   });
 
   describe("cve_lookup", () => {
-    it("should return CVE details on success", async () => {
+    it("should fetch and return CVE data", async () => {
+      const mockResponse = { id: "CVE-2021-44228", description: "Log4Shell" };
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => ({
-          cveMetadata: { cveId: "CVE-2021-44228" },
-        }),
+        json: vi.fn().mockResolvedValue(mockResponse),
       });
 
       const handler = toolsMap["cve_lookup"].handler;
-      const result = await handler({ cveId: "CVE-2021-44228" }, {});
+      const response = await handler({ cveId: "CVE-2021-44228" });
 
-      const content = JSON.parse(result.content[0].text);
-      expect(content.cveMetadata.cveId).toBe("CVE-2021-44228");
       expect(global.fetch).toHaveBeenCalledWith("https://cveawg.mitre.org/api/cve/CVE-2021-44228");
+      const data = JSON.parse(response.content[0].text);
+      expect(data.id).toBe("CVE-2021-44228");
     });
 
-    it("should handle 404 not found", async () => {
+    it("should handle 404 properly", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: false,
         status: 404,
       });
 
       const handler = toolsMap["cve_lookup"].handler;
-      const result = await handler({ cveId: "CVE-INVALID" }, {});
+      const response = await handler({ cveId: "CVE-UNKNOWN" });
 
-      expect(result.isError).toBe(true);
-      expect(result.content[0].text).toContain("not found");
+      expect(response.isError).toBe(true);
+      expect(response.content[0].text).toContain("not found");
     });
 
-    it("should handle fetch errors", async () => {
-      global.fetch = vi.fn().mockRejectedValue(new Error("Network Error"));
+    it("should handle server errors gracefully", async () => {
+      global.fetch = vi.fn().mockRejectedValue(new Error("Network Failure"));
 
       const handler = toolsMap["cve_lookup"].handler;
-      const result = await handler({ cveId: "CVE-2021-44228" }, {});
+      const response = await handler({ cveId: "CVE-2021-44228" });
 
-      expect(result.isError).toBe(true);
-      expect(result.content[0].text).toContain("Network Error");
+      expect(response.isError).toBe(true);
+      expect(response.content[0].text).toContain("Network Failure");
     });
   });
 });

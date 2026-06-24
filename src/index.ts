@@ -13,17 +13,17 @@ import { z } from "zod";
 import { FRAMEWORKS } from "./frameworks.js";
 import type { AuditSession, FrameworkItem } from "./types.js";
 
-const frameworkKeys = Object.keys(FRAMEWORKS) as [string, ...string[]];
-const searchFrameworkKeys = [...frameworkKeys, "all"] as [string, ...string[]];
-
 export const server = new McpServer({
   name: "security-audit-mcp",
   version: "1.0.0",
-  description: "AI-powered security audit tools for OWASP, NIST, and ISO 27001",
+  description: "AI-powered security audit tools for OWASP, NIST, ISO 27001, and more",
 });
 
 // In-memory session storage
 const sessions = new Map<string, AuditSession>();
+
+const frameworkKeys = Object.keys(FRAMEWORKS) as [string, ...string[]];
+const searchFrameworkKeys = [...frameworkKeys, "all"] as [string, ...string[]];
 
 // ─── Tool: list_frameworks ───────────────────────────────────────────────────
 server.tool(
@@ -265,20 +265,22 @@ server.tool(
 // ─── Tool: cve_lookup ────────────────────────────────────────────────────────
 server.tool(
   "cve_lookup",
-  "Fetch vulnerability details from the official MITRE CVE API",
+  "Look up a CVE by ID to get its details",
   {
-    cveId: z.string().describe("CVE ID e.g. 'CVE-2021-44228'"),
+    cveId: z.string().describe("The CVE ID to look up, e.g. CVE-2021-44228"),
   },
   async ({ cveId }) => {
     try {
       const response = await fetch(`https://cveawg.mitre.org/api/cve/${cveId}`);
       if (!response.ok) {
         if (response.status === 404) {
-          return { content: [{ type: "text", text: `CVE '${cveId}' not found.` }], isError: true };
+          return {
+            content: [{ type: "text", text: `CVE '${cveId}' not found.` }],
+            isError: true,
+          };
         }
-        return { content: [{ type: "text", text: `Failed to fetch CVE '${cveId}': ${response.statusText}` }], isError: true };
+        throw new Error(`Failed to fetch CVE data: ${response.statusText}`);
       }
-
       const data = await response.json();
       return {
         content: [{
@@ -287,14 +289,16 @@ server.tool(
         }],
       };
     } catch (error: any) {
-      return { content: [{ type: "text", text: `Error fetching CVE '${cveId}': ${error.message}` }], isError: true };
+      return {
+        content: [{ type: "text", text: `Error fetching CVE '${cveId}': ${error.message}` }],
+        isError: true,
+      };
     }
   }
 );
 
-
 // ─── Start Server ────────────────────────────────────────────────────────────
-async function main() {
+export async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("🔐 security-audit-mcp server running on stdio");
