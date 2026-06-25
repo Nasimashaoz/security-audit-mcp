@@ -7,7 +7,7 @@
 [![Claude](https://img.shields.io/badge/Works%20with-Claude-orange)](https://claude.ai)
 [![Cursor](https://img.shields.io/badge/Works%20with-Cursor-blue)](https://cursor.sh)
 
-> **Give your AI agent a security brain.** Run structured OWASP, NIST, and ISO 27001 audits directly inside Claude, Cursor, or any MCP-compatible AI agent — in seconds.
+> **Give your AI agent a security brain.** Run structured OWASP, NIST, ISO 27001, PCI-DSS, SOC 2, HIPAA, CIS v8, and GDPR audits directly inside Claude, Cursor, or any MCP-compatible AI agent — in seconds.
 
 ---
 
@@ -104,11 +104,12 @@ Once installed, your AI agent gets these tools:
 | Tool | Description |
 |------|-------------|
 | `list_frameworks` | List all available security frameworks |
-| `get_framework` | Get full checklist for a framework (owasp / nist / iso27001) |
+| `get_framework` | Get full checklist for a specific framework |
 | `audit_item` | Assess a specific control item with pass/fail/skip + notes |
 | `generate_report` | Generate a full audit report from session results |
 | `get_risk_summary` | Get a summary of risks by severity level |
 | `search_controls` | Search controls by keyword across all frameworks |
+| `cve_lookup` | Lookup vulnerability details from the official MITRE CVE API |
 
 ### Example AI Prompts
 
@@ -134,6 +135,21 @@ Federal security and privacy controls. Required for US government systems, widel
 
 ### ISO 27001:2022
 International standard for information security management. Required for ISO certification.
+
+### PCI-DSS v4.0
+Payment Card Industry Data Security Standard for protecting cardholder data.
+
+### SOC 2 Type II
+Trust Services Criteria including Security, Availability, Processing Integrity, Confidentiality, and Privacy.
+
+### HIPAA Security Rule
+National standards to protect individuals' electronic personal health information (ePHI).
+
+### CIS Controls v8
+Center for Internet Security Controls.
+
+### GDPR
+General Data Protection Regulation for EU data subjects.
 
 ---
 
@@ -179,13 +195,13 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
-- [ ] CVE lookup integration
+- [x] PCI-DSS checklist
+- [x] SOC 2 Type II controls
+- [x] HIPAA Security Rule
+- [x] CIS Controls v8
+- [x] CVE lookup integration
+- [x] CI/CD pipeline integration (GitHub Actions)
 - [ ] Automated codebase scanning
-- [ ] CI/CD pipeline integration (GitHub Actions)
 
 ---
 
