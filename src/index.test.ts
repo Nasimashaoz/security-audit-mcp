@@ -29,6 +29,7 @@ describe("security-audit-mcp tools", () => {
   });
 
   afterEach(() => {
+    vi.runOnlyPendingTimers();
     vi.useRealTimers();
     vi.restoreAllMocks();
   });
