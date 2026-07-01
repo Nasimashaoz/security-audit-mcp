@@ -135,6 +135,21 @@ Federal security and privacy controls. Required for US government systems, widel
 ### ISO 27001:2022
 International standard for information security management. Required for ISO certification.
 
+### PCI-DSS v4.0
+Payment Card Industry Data Security Standard for protecting payment account data.
+
+### SOC 2 Type II
+Service Organization Control 2 framework focusing on security, availability, processing integrity, confidentiality, and privacy.
+
+### HIPAA Security Rule
+Health Insurance Portability and Accountability Act standards for protecting electronic protected health information (ePHI).
+
+### CIS Controls v8
+Center for Internet Security Critical Security Controls.
+
+### GDPR
+General Data Protection Regulation standards for data privacy and security.
+
 ---
 
 ## 🔧 Local Development
@@ -179,11 +194,6 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
-- [ ] CVE lookup integration
 - [ ] Automated codebase scanning
 - [ ] CI/CD pipeline integration (GitHub Actions)
 
