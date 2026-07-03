@@ -57,4 +57,98 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard. Required for entities that store, process, or transmit cardholder data.",
+    items: [
+      { id: "Req-1", title: "Install and Maintain Network Security Controls", description: "Are firewalls and routers configured to restrict traffic to that which is necessary?", risk: "HIGH" },
+      { id: "Req-2", title: "Apply Secure Configurations to All System Components", description: "Are default passwords changed? Are system components configured securely?", risk: "CRITICAL" },
+      { id: "Req-3", title: "Protect Stored Account Data", description: "Is stored cardholder data kept to a minimum and encrypted?", risk: "CRITICAL" },
+      { id: "Req-4", title: "Protect Cryptographic Data in Transit", description: "Is strong cryptography used to protect account data during transmission over open, public networks?", risk: "HIGH" },
+      { id: "Req-5", title: "Protect All Systems and Networks from Malicious Software", description: "Are anti-malware solutions deployed, maintained, and actively monitored?", risk: "HIGH" },
+      { id: "Req-6", title: "Develop and Maintain Secure Systems and Software", description: "Are security vulnerabilities identified and addressed? Are secure coding practices followed?", risk: "HIGH" },
+      { id: "Req-7", title: "Restrict Access to System Components and Cardholder Data", description: "Is access to system components and cardholder data restricted based on least privilege and need-to-know?", risk: "HIGH" },
+      { id: "Req-8", title: "Identify Users and Authenticate Access to System Components", description: "Are users uniquely identified and authenticated? Is MFA implemented?", risk: "CRITICAL" },
+      { id: "Req-9", title: "Restrict Physical Access to Cardholder Data", description: "Are physical access controls in place to protect facilities housing cardholder data?", risk: "MEDIUM" },
+      { id: "Req-10", title: "Log and Monitor All Access to System Components", description: "Are audit logs implemented, securely maintained, and reviewed to detect anomalies?", risk: "HIGH" },
+      { id: "Req-11", title: "Test Security of Systems and Networks Regularly", description: "Are vulnerability scans and penetration tests performed regularly?", risk: "HIGH" },
+      { id: "Req-12", title: "Support Information Security with Organizational Policies", description: "Are information security policies documented, updated, and communicated?", risk: "MEDIUM" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2",
+    version: "Type II",
+    description: "Service Organization Control 2. Framework for managing data based on trust service principles.",
+    items: [
+      { id: "CC-1", title: "Control Environment", description: "Does the entity demonstrate a commitment to integrity and ethical values?", risk: "MEDIUM" },
+      { id: "CC-2", title: "Communication and Information", description: "Does the entity generate and use relevant, quality information to support the functioning of internal control?", risk: "LOW" },
+      { id: "CC-3", title: "Risk Assessment", description: "Does the entity specify objectives with sufficient clarity to enable the identification and assessment of risks?", risk: "HIGH" },
+      { id: "CC-4", title: "Monitoring Activities", description: "Does the entity select, develop, and perform ongoing evaluations to ascertain whether controls are present and functioning?", risk: "MEDIUM" },
+      { id: "CC-5", title: "Control Activities", description: "Does the entity select and develop control activities that contribute to the mitigation of risks?", risk: "HIGH" },
+      { id: "CC-6", title: "Logical and Physical Access Controls", description: "Does the entity restrict logical and physical access to authorized users?", risk: "CRITICAL" },
+      { id: "CC-7", title: "System Operations", description: "Does the entity monitor system operations and detect deviations from baseline performance?", risk: "HIGH" },
+      { id: "CC-8", title: "Change Management", description: "Does the entity authorize, design, develop, and test changes to infrastructure, data, software, and procedures?", risk: "HIGH" },
+      { id: "CC-9", title: "Risk Mitigation", description: "Does the entity manage risks associated with business disruption and the use of vendors?", risk: "HIGH" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA",
+    version: "Security Rule",
+    description: "Health Insurance Portability and Accountability Act. Sets national standards for the protection of health information.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Are risk analyses conducted and risk management plans implemented?", risk: "HIGH" },
+      { id: "164.308(a)(3)", title: "Workforce Security", description: "Are procedures implemented to ensure only authorized workforce members have access to EPHI?", risk: "HIGH" },
+      { id: "164.308(a)(4)", title: "Information Access Management", description: "Are policies implemented for authorizing access to EPHI?", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Is a security awareness and training program implemented for all workforce members?", risk: "MEDIUM" },
+      { id: "164.308(a)(6)", title: "Security Incident Procedures", description: "Are procedures in place to identify, respond to, and report security incidents?", risk: "HIGH" },
+      { id: "164.308(a)(7)", title: "Contingency Plan", description: "Are data backup, disaster recovery, and emergency mode operation plans established?", risk: "HIGH" },
+      { id: "164.310(a)(1)", title: "Facility Access Controls", description: "Are policies implemented to limit physical access to electronic information systems?", risk: "MEDIUM" },
+      { id: "164.310(b)", title: "Workstation Use", description: "Are policies implemented specifying proper functions, manner, and physical attributes of workstation surroundings?", risk: "LOW" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are technical policies implemented for electronic systems containing EPHI to allow only authorized persons?", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Are hardware, software, and/or procedural mechanisms implemented to record and examine activity in information systems?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are technical security measures implemented to guard against unauthorized access to EPHI transmitted over electronic networks?", risk: "HIGH" }
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls",
+    version: "v8",
+    description: "Center for Internet Security Controls. A prioritized set of best practices to mitigate the most prevalent cyber attacks.",
+    items: [
+      { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Are all enterprise assets actively managed (inventoried, tracked, and corrected)?", risk: "HIGH" },
+      { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Is all software on enterprise assets actively managed?", risk: "HIGH" },
+      { id: "CIS-3", title: "Data Protection", description: "Are processes and technical controls developed to identify, classify, and securely handle data?", risk: "CRITICAL" },
+      { id: "CIS-4", title: "Secure Configuration of Enterprise Assets and Software", description: "Are secure configurations established and maintained for all enterprise assets?", risk: "HIGH" },
+      { id: "CIS-5", title: "Account Management", description: "Are processes and tools used to assign and manage authorization to credentials for user accounts?", risk: "HIGH" },
+      { id: "CIS-6", title: "Access Control Management", description: "Are processes and tools used to create, assign, manage, and revoke access credentials and privileges?", risk: "CRITICAL" },
+      { id: "CIS-7", title: "Continuous Vulnerability Management", description: "Are plans in place to continuously assess and track vulnerabilities on enterprise assets?", risk: "HIGH" },
+      { id: "CIS-8", title: "Audit Log Management", description: "Are audit logs collected, alerted on, reviewed, and retained?", risk: "MEDIUM" },
+      { id: "CIS-9", title: "Email and Web Browser Protections", description: "Are protections improved and protections for email and web vectors managed?", risk: "MEDIUM" },
+      { id: "CIS-10", title: "Malware Defenses", description: "Is the installation, spread, and execution of malicious applications prevented or controlled?", risk: "HIGH" },
+      { id: "CIS-11", title: "Data Recovery", description: "Are data recovery practices established and maintained?", risk: "HIGH" },
+      { id: "CIS-12", title: "Network Infrastructure Management", description: "Is network infrastructure actively managed?", risk: "MEDIUM" },
+      { id: "CIS-13", title: "Network Monitoring and Defense", description: "Are processes and tooling established to monitor network and detect anomalies?", risk: "HIGH" },
+      { id: "CIS-14", title: "Security Awareness and Skills Training", description: "Is a security awareness program established and maintained?", risk: "LOW" },
+      { id: "CIS-15", title: "Service Provider Management", description: "Are processes developed to evaluate service providers who hold sensitive data?", risk: "MEDIUM" },
+      { id: "CIS-16", title: "Application Software Security", description: "Is the security lifecycle of in-house developed and hosted software managed?", risk: "HIGH" },
+      { id: "CIS-17", title: "Incident Response Management", description: "Are policies and plans developed to effectively respond to incidents?", risk: "HIGH" },
+      { id: "CIS-18", title: "Penetration Testing", description: "Is the effectiveness and resiliency of enterprise assets tested?", risk: "MEDIUM" }
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation. EU regulation on data protection and privacy.",
+    items: [
+      { id: "Art-5", title: "Principles relating to processing of personal data", description: "Is personal data processed lawfully, fairly, and in a transparent manner?", risk: "HIGH" },
+      { id: "Art-15", title: "Right of access by the data subject", description: "Can data subjects obtain confirmation as to whether or not personal data concerning them is being processed?", risk: "MEDIUM" },
+      { id: "Art-17", title: "Right to erasure ('right to be forgotten')", description: "Are processes in place to erase personal data without undue delay when requested?", risk: "HIGH" },
+      { id: "Art-25", title: "Data protection by design and by default", description: "Are appropriate technical and organisational measures implemented to ensure data protection principles?", risk: "HIGH" },
+      { id: "Art-30", title: "Records of processing activities", description: "Are records of processing activities maintained?", risk: "MEDIUM" },
+      { id: "Art-32", title: "Security of processing", description: "Are appropriate technical and organisational measures implemented to ensure a level of security appropriate to the risk?", risk: "CRITICAL" },
+      { id: "Art-33", title: "Notification of a personal data breach to the supervisory authority", description: "Are processes in place to notify the supervisory authority of a personal data breach within 72 hours?", risk: "HIGH" },
+      { id: "Art-35", title: "Data protection impact assessment", description: "Are data protection impact assessments carried out where processing is likely to result in a high risk?", risk: "HIGH" },
+      { id: "Art-37", title: "Designation of the data protection officer", description: "Is a Data Protection Officer (DPO) designated if required?", risk: "LOW" }
+    ]
+  }
 };
