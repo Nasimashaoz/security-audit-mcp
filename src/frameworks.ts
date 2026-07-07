@@ -57,4 +57,74 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS v4.0",
+    version: "4.0",
+    description: "Payment Card Industry Data Security Standard for organizations handling branded credit cards.",
+    items: [
+      { id: "1.1.1", title: "Network Security Controls", description: "Are network security controls (NSCs) implemented and maintained?", risk: "HIGH" },
+      { id: "3.2.1", title: "Protect Stored Account Data", description: "Is account data storage kept to a minimum?", risk: "CRITICAL" },
+      { id: "4.2.1", title: "Strong Cryptography", description: "Is strong cryptography used during transmission over open, public networks?", risk: "HIGH" },
+      { id: "8.2.1", title: "Unique User Identification", description: "Are unique user IDs assigned to all users?", risk: "HIGH" },
+      { id: "8.4.2", title: "Multi-Factor Authentication", description: "Is MFA implemented for all access into the CDE?", risk: "CRITICAL" },
+      { id: "10.2.1", title: "Audit Logs", description: "Are audit logs implemented to link all access to system components to each individual user?", risk: "MEDIUM" },
+      { id: "11.3.1", title: "External Vulnerability Scans", description: "Are external vulnerability scans performed at least once every three months?", risk: "HIGH" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017 TSC",
+    description: "Trust Services Criteria for security, availability, processing integrity, confidentiality, and privacy.",
+    items: [
+      { id: "CC1.1", title: "Control Environment", description: "Does the entity demonstrate a commitment to integrity and ethical values?", risk: "MEDIUM" },
+      { id: "CC3.1", title: "Risk Assessment", description: "Does the entity specify objectives with sufficient clarity to enable the identification and assessment of risks?", risk: "HIGH" },
+      { id: "CC6.1", title: "Logical Access Security", description: "Does the entity implement logical access security software, infrastructure, and architectures?", risk: "CRITICAL" },
+      { id: "CC6.6", title: "System Boundaries", description: "Does the entity implement logical access security measures to protect against threats from sources outside its system boundaries?", risk: "HIGH" },
+      { id: "CC7.1", title: "System Operations", description: "To meet its objectives, does the entity use detection and monitoring procedures to identify changes to configurations?", risk: "HIGH" },
+      { id: "CC8.1", title: "Change Management", description: "Does the entity authorize, design, develop or acquire, configure, document, test, approve, and implement changes?", risk: "MEDIUM" },
+      { id: "CC9.1", title: "Risk Mitigation", description: "Does the entity identify, select, and develop risk mitigation activities?", risk: "HIGH" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "2013",
+    description: "National standards to protect individuals' electronic personal health information (ePHI).",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Are policies and procedures implemented to prevent, detect, contain, and correct security violations?", risk: "CRITICAL" },
+      { id: "164.308(a)(4)", title: "Information Access Management", description: "Are policies implemented for authorizing access to ePHI?", risk: "HIGH" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Is a security awareness and training program implemented for all workforce members?", risk: "MEDIUM" },
+      { id: "164.308(a)(7)", title: "Contingency Plan", description: "Are policies implemented for responding to an emergency or other occurrence that damages systems?", risk: "HIGH" },
+      { id: "164.310(a)(1)", title: "Facility Access Controls", description: "Are physical safeguards implemented for all electronic information systems?", risk: "MEDIUM" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are technical policies implemented for electronic information systems that maintain ePHI?", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Are hardware, software, and/or procedural mechanisms implemented that record and examine activity?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are technical security measures implemented to guard against unauthorized access to ePHI transmitted over an electronic communications network?", risk: "HIGH" }
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls v8",
+    version: "v8",
+    description: "Center for Internet Security Critical Security Controls for effective cyber defense.",
+    items: [
+      { id: "CIS 1", title: "Inventory and Control of Enterprise Assets", description: "Actively manage (inventory, track, and correct) all enterprise assets.", risk: "HIGH" },
+      { id: "CIS 2", title: "Inventory and Control of Software Assets", description: "Actively manage (inventory, track, and correct) all software on the network.", risk: "HIGH" },
+      { id: "CIS 3", title: "Data Protection", description: "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.", risk: "CRITICAL" },
+      { id: "CIS 4", title: "Secure Configuration of Enterprise Assets and Software", description: "Establish and maintain the secure configuration of enterprise assets and software.", risk: "HIGH" },
+      { id: "CIS 5", title: "Account Management", description: "Use processes and tools to assign and manage authorization to credentials for user accounts.", risk: "HIGH" },
+      { id: "CIS 6", title: "Access Control Management", description: "Use processes and tools to create, assign, manage, and revoke access credentials and privileges.", risk: "CRITICAL" },
+      { id: "CIS 8", title: "Audit Log Management", description: "Collect, alert, review, and retain audit logs of events that could help detect, understand, or recover from an attack.", risk: "MEDIUM" }
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2018",
+    description: "General Data Protection Regulation for data protection and privacy in the EU and EEA.",
+    items: [
+      { id: "Art. 5", title: "Principles relating to processing of personal data", description: "Is personal data processed lawfully, fairly and in a transparent manner?", risk: "CRITICAL" },
+      { id: "Art. 25", title: "Data protection by design and by default", description: "Are appropriate technical and organisational measures implemented to implement data-protection principles?", risk: "HIGH" },
+      { id: "Art. 32", title: "Security of processing", description: "Are appropriate technical and organisational measures implemented to ensure a level of security appropriate to the risk?", risk: "CRITICAL" },
+      { id: "Art. 33", title: "Notification of a personal data breach to the supervisory authority", description: "Is there a process to notify the supervisory authority of a personal data breach within 72 hours?", risk: "HIGH" },
+      { id: "Art. 34", title: "Communication of a personal data breach to the data subject", description: "Is there a process to communicate personal data breaches to the data subjects when the breach is likely to result in a high risk?", risk: "HIGH" },
+      { id: "Art. 35", title: "Data protection impact assessment", description: "Is a data protection impact assessment carried out where processing is likely to result in a high risk?", risk: "MEDIUM" }
+    ],
+  },
 };
