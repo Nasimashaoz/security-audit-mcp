@@ -13,21 +13,20 @@ import { z } from "zod";
 import { FRAMEWORKS } from "./frameworks.js";
 import type { AuditSession, FrameworkItem } from "./types.js";
 
-const server = new McpServer({
+export const server = new McpServer({
   name: "security-audit-mcp",
   version: "1.0.0",
   description: "AI-powered security audit tools for OWASP, NIST, and ISO 27001",
 });
 
 // In-memory session storage
-const sessions = new Map<string, AuditSession>();
+export const sessions = new Map<string, AuditSession>();
 
-// ─── Tool: list_frameworks ───────────────────────────────────────────────────
-server.tool(
-  "list_frameworks",
-  "List all available security audit frameworks",
-  {},
-  async () => {
+const frameworkKeys = Object.keys(FRAMEWORKS) as [string, ...string[]];
+const searchFrameworkKeys = [...frameworkKeys, "all"] as [string, ...string[]];
+
+// Handlers for easy unit testing
+export async function list_frameworks() {
     const list = Object.entries(FRAMEWORKS).map(([key, fw]) => ({
       id: key,
       name: fw.name,
@@ -37,56 +36,34 @@ server.tool(
     }));
     return {
       content: [{
-        type: "text",
+        type: "text" as const,
         text: JSON.stringify({ frameworks: list }, null, 2),
       }],
     };
-  }
-);
+}
 
-// ─── Tool: get_framework ─────────────────────────────────────────────────────
-server.tool(
-  "get_framework",
-  "Get the full checklist for a specific security framework",
-  {
-    framework: z.enum(["owasp", "nist", "iso27001"]).describe(
-      "Framework ID: owasp | nist | iso27001"
-    ),
-  },
-  async ({ framework }) => {
+export async function get_framework({ framework }: { framework: string }) {
     const fw = FRAMEWORKS[framework];
     if (!fw) {
       return {
-        content: [{ type: "text", text: `Framework '${framework}' not found.` }],
+        content: [{ type: "text" as const, text: `Framework '${framework}' not found.` }],
         isError: true,
       };
     }
     return {
       content: [{
-        type: "text",
+        type: "text" as const,
         text: JSON.stringify(fw, null, 2),
       }],
     };
-  }
-);
+}
 
-// ─── Tool: audit_item ────────────────────────────────────────────────────────
-server.tool(
-  "audit_item",
-  "Record a pass/fail/skip result for a specific audit control item",
-  {
-    sessionId: z.string().describe("Unique audit session ID (create any string)"),
-    framework: z.enum(["owasp", "nist", "iso27001"]),
-    itemId: z.string().describe("Control ID e.g. A01, AC-2, A.5.1"),
-    status: z.enum(["pass", "fail", "skip"]).describe("Audit result"),
-    notes: z.string().optional().describe("Optional notes or remediation steps"),
-  },
-  async ({ sessionId, framework, itemId, status, notes }) => {
+export async function audit_item({ sessionId, framework, itemId, status, notes }: { sessionId: string; framework: string; itemId: string; status: "pass" | "fail" | "skip"; notes?: string }) {
     const fw = FRAMEWORKS[framework];
     const item = fw?.items.find((i: FrameworkItem) => i.id === itemId);
     if (!item) {
       return {
-        content: [{ type: "text", text: `Item '${itemId}' not found in ${framework}.` }],
+        content: [{ type: "text" as const, text: `Item '${itemId}' not found in ${framework}.` }],
         isError: true,
       };
     }
@@ -107,29 +84,20 @@ server.tool(
 
     return {
       content: [{
-        type: "text",
+        type: "text" as const,
         text: JSON.stringify({
           recorded: result,
           sessionProgress: `${session.results.length} / ${fw.items.length} items audited`,
         }, null, 2),
       }],
     };
-  }
-);
+}
 
-// ─── Tool: generate_report ───────────────────────────────────────────────────
-server.tool(
-  "generate_report",
-  "Generate a full audit report for a session",
-  {
-    sessionId: z.string(),
-    format: z.enum(["json", "markdown", "html"]).default("markdown"),
-  },
-  async ({ sessionId, format }) => {
+export async function generate_report({ sessionId, format }: { sessionId: string; format: "json" | "markdown" | "html" }) {
     const session = sessions.get(sessionId);
     if (!session) {
       return {
-        content: [{ type: "text", text: `Session '${sessionId}' not found.` }],
+        content: [{ type: "text" as const, text: `Session '${sessionId}' not found.` }],
         isError: true,
       };
     }
@@ -148,7 +116,7 @@ server.tool(
     if (format === "json") {
       return {
         content: [{
-          type: "text",
+          type: "text" as const,
           text: JSON.stringify({
             session: sessionId,
             framework: fw.name,
@@ -178,7 +146,7 @@ server.tool(
 ## Results\n
 | ID | Title | Risk | Status | Notes |\n|---|---|---|---|---|\n${rows}\n`;
 
-      return { content: [{ type: "text", text: report }] };
+      return { content: [{ type: "text" as const, text: report }] };
     }
 
     // HTML format
@@ -193,18 +161,10 @@ server.tool(
 <table><tr><th>ID</th><th>Title</th><th>Risk</th><th>Status</th><th>Notes</th></tr>${rows}</table>
 <p><small>Generated ${new Date().toISOString()} by security-audit-mcp</small></p></body></html>`;
 
-    return { content: [{ type: "text", text: html }] };
-  }
-);
+    return { content: [{ type: "text" as const, text: html }] };
+}
 
-// ─── Tool: get_risk_summary ──────────────────────────────────────────────────
-server.tool(
-  "get_risk_summary",
-  "Get a breakdown of risks by severity level for a framework",
-  {
-    framework: z.enum(["owasp", "nist", "iso27001"]),
-  },
-  async ({ framework }) => {
+export async function get_risk_summary({ framework }: { framework: string }) {
     const fw = FRAMEWORKS[framework];
     const summary = { CRITICAL: [] as string[], HIGH: [] as string[], MEDIUM: [] as string[], LOW: [] as string[] };
     fw.items.forEach((item: FrameworkItem) => {
@@ -214,22 +174,13 @@ server.tool(
     });
     return {
       content: [{
-        type: "text",
+        type: "text" as const,
         text: JSON.stringify({ framework: fw.name, riskBreakdown: summary }, null, 2),
       }],
     };
-  }
-);
+}
 
-// ─── Tool: search_controls ───────────────────────────────────────────────────
-server.tool(
-  "search_controls",
-  "Search for security controls by keyword across all frameworks",
-  {
-    query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
-    framework: z.enum(["owasp", "nist", "iso27001", "all"]).default("all"),
-  },
-  async ({ query, framework }) => {
+export async function search_controls({ query, framework }: { query: string; framework: string }) {
     const q = query.toLowerCase();
     const results: Record<string, FrameworkItem[]> = {};
 
@@ -252,11 +203,103 @@ server.tool(
     const total = Object.values(results).reduce((sum, arr) => sum + arr.length, 0);
     return {
       content: [{
-        type: "text",
+        type: "text" as const,
         text: JSON.stringify({ query, totalMatches: total, results }, null, 2),
       }],
     };
-  }
+}
+
+export async function cve_lookup({ cveId }: { cveId: string }) {
+    try {
+        const sanitizedCveId = encodeURIComponent(cveId);
+        const response = await fetch(`https://cveawg.mitre.org/api/cve/${sanitizedCveId}`);
+        if (!response.ok) {
+            return {
+                content: [{ type: "text" as const, text: `Failed to fetch CVE data: ${response.statusText}` }],
+                isError: true,
+            };
+        }
+        const data = await response.json();
+        return {
+            content: [{
+                type: "text" as const,
+                text: JSON.stringify(data, null, 2),
+            }],
+        };
+    } catch (error: any) {
+        return {
+            content: [{ type: "text" as const, text: `Error fetching CVE data: ${error.message}` }],
+            isError: true,
+        };
+    }
+}
+
+// ─── Tool Registrations ──────────────────────────────────────────────────────
+server.tool(
+  "list_frameworks",
+  "List all available security audit frameworks",
+  {},
+  list_frameworks
+);
+
+server.tool(
+  "get_framework",
+  "Get the full checklist for a specific security framework",
+  {
+    framework: z.enum(frameworkKeys).describe("Framework ID"),
+  },
+  get_framework
+);
+
+server.tool(
+  "audit_item",
+  "Record a pass/fail/skip result for a specific audit control item",
+  {
+    sessionId: z.string().describe("Unique audit session ID (create any string)"),
+    framework: z.enum(frameworkKeys),
+    itemId: z.string().describe("Control ID e.g. A01, AC-2, A.5.1"),
+    status: z.enum(["pass", "fail", "skip"]).describe("Audit result"),
+    notes: z.string().optional().describe("Optional notes or remediation steps"),
+  },
+  audit_item
+);
+
+server.tool(
+  "generate_report",
+  "Generate a full audit report for a session",
+  {
+    sessionId: z.string(),
+    format: z.enum(["json", "markdown", "html"]).default("markdown"),
+  },
+  generate_report as any
+);
+
+server.tool(
+  "get_risk_summary",
+  "Get a breakdown of risks by severity level for a framework",
+  {
+    framework: z.enum(frameworkKeys),
+  },
+  get_risk_summary
+);
+
+server.tool(
+  "search_controls",
+  "Search for security controls by keyword across all frameworks",
+  {
+    query: z.string().describe("Search term e.g. 'authentication', 'encryption', 'logging'"),
+    framework: z.enum(searchFrameworkKeys).default("all"),
+  },
+  search_controls
+);
+
+server.tool(
+  "cve_lookup",
+  "Lookup a CVE by ID using the official MITRE API",
+  {
+    cveId: z.string().describe("The CVE ID to lookup (e.g., CVE-2021-44228)"),
+  },
+  cve_lookup
 );
 
 // ─── Start Server ────────────────────────────────────────────────────────────
@@ -266,7 +309,9 @@ async function main() {
   console.error("🔐 security-audit-mcp server running on stdio");
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== "test") {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
