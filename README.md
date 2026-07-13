@@ -29,7 +29,7 @@ npm install -g security-audit-mcp
 
 `security-audit-mcp` is a **Model Context Protocol (MCP) server** that gives AI agents like Claude and Cursor the ability to:
 
-- 🔍 **Run security audits** against OWASP Top 10, NIST SP 800-53, ISO 27001
+- 🔍 **Run security audits** against OWASP Top 10, NIST SP 800-53, ISO 27001, PCI-DSS, SOC 2, HIPAA, CIS v8, GDPR
 - 🚨 **Identify risks** with CRITICAL / HIGH / MEDIUM / LOW severity scoring
 - 📊 **Generate audit reports** in JSON, CSV, or HTML format
 - 🧠 **Answer security questions** with structured framework knowledge
@@ -109,6 +109,7 @@ Once installed, your AI agent gets these tools:
 | `generate_report` | Generate a full audit report from session results |
 | `get_risk_summary` | Get a summary of risks by severity level |
 | `search_controls` | Search controls by keyword across all frameworks |
+| `cve_lookup` | Look up details for a specific Common Vulnerabilities and Exposures (CVE) identifier |
 
 ### Example AI Prompts
 
@@ -134,6 +135,21 @@ Federal security and privacy controls. Required for US government systems, widel
 
 ### ISO 27001:2022
 International standard for information security management. Required for ISO certification.
+
+### PCI-DSS v4.0
+Payment Card Industry Data Security Standard. Required for any organization that handles branded credit cards.
+
+### SOC 2 Type II
+Auditing procedure that ensures service providers securely manage data to protect the interests of the organization and the privacy of its clients.
+
+### HIPAA Security Rule
+National standards to protect individuals' electronic personal health information (ePHI).
+
+### CIS Controls v8
+Prioritized set of actions to protect organizations and data from known cyber attack vectors.
+
+### GDPR
+General Data Protection Regulation. Protects the data and privacy of all individuals within the European Union (EU) and the European Economic Area (EEA).
 
 ---
 
@@ -179,11 +195,12 @@ MIT — free for personal and commercial use.
 
 ## 🚀 Roadmap
 
-- [ ] PCI-DSS checklist
-- [ ] SOC 2 Type II controls
-- [ ] HIPAA Security Rule
-- [ ] CIS Controls v8
-- [ ] CVE lookup integration
+- [x] PCI-DSS checklist
+- [x] SOC 2 Type II controls
+- [x] HIPAA Security Rule
+- [x] CIS Controls v8
+- [x] GDPR checklist
+- [x] CVE lookup integration
 - [ ] Automated codebase scanning
 - [ ] CI/CD pipeline integration (GitHub Actions)
 
