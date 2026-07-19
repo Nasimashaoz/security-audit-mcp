@@ -132,14 +132,14 @@ describe("Handlers", () => {
 
   it("handleGetRiskSummary should return risk breakdown", async () => {
     const res = await handleGetRiskSummary({ framework: "owasp" });
-    expect(res.isError).toBeUndefined();
+    expect((res as any).isError).toBeUndefined();
     const data = JSON.parse(res.content[0].text);
     expect(data.riskBreakdown.CRITICAL.length).toBeGreaterThan(0);
   });
 
   it("handleSearchControls should find controls by keyword", async () => {
     const res = await handleSearchControls({ query: "injection", framework: "all" });
-    expect(res.isError).toBeUndefined();
+    expect((res as any).isError).toBeUndefined();
     const data = JSON.parse(res.content[0].text);
     expect(data.totalMatches).toBeGreaterThan(0);
   });
