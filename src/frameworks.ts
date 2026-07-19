@@ -58,3 +58,82 @@ export const FRAMEWORKS: Record<string, Framework> = {
     ],
   },
 };
+
+FRAMEWORKS["pci-dss"] = {
+  name: "PCI-DSS",
+  version: "v4.0",
+  description: "Payment Card Industry Data Security Standard for organizations that handle branded credit cards.",
+  items: [
+    { id: "Req-1", title: "Network Security Controls", description: "Install and maintain network security controls.", risk: "HIGH" },
+    { id: "Req-2", title: "Secure Configurations", description: "Apply secure configurations to all system components.", risk: "HIGH" },
+    { id: "Req-3", title: "Protect Stored Account Data", description: "Protect stored account data.", risk: "CRITICAL" },
+    { id: "Req-4", title: "Protect Data in Transit", description: "Protect account data with strong cryptography during transmission over open, public networks.", risk: "CRITICAL" },
+    { id: "Req-5", title: "Protect from Malicious Software", description: "Protect all systems and networks from malicious software.", risk: "HIGH" },
+    { id: "Req-6", title: "Develop and Maintain Secure Systems", description: "Develop and maintain secure systems and software.", risk: "HIGH" },
+    { id: "Req-7", title: "Restrict Access to Data", description: "Restrict access to system components and cardholder data by business need to know.", risk: "CRITICAL" },
+    { id: "Req-8", title: "Identify Users and Authenticate Access", description: "Identify users and authenticate access to system components.", risk: "CRITICAL" },
+    { id: "Req-9", title: "Restrict Physical Access", description: "Restrict physical access to cardholder data.", risk: "HIGH" },
+    { id: "Req-10", title: "Log and Monitor Access", description: "Log and monitor all access to system components and cardholder data.", risk: "HIGH" },
+    { id: "Req-11", title: "Test Security Systems", description: "Test security of systems and networks regularly.", risk: "HIGH" },
+    { id: "Req-12", title: "Manage Information Security", description: "Support information security with organizational policies and programs.", risk: "MEDIUM" },
+  ]
+};
+
+FRAMEWORKS["soc2"] = {
+  name: "SOC 2",
+  version: "Type II",
+  description: "Service Organization Control 2 criteria for managing customer data based on five trust service principles.",
+  items: [
+    { id: "CC1", title: "Control Environment", description: "Demonstrate commitment to integrity and ethical values.", risk: "MEDIUM" },
+    { id: "CC2", title: "Communication and Information", description: "Generate and use relevant, quality information to support functioning of internal control.", risk: "MEDIUM" },
+    { id: "CC3", title: "Risk Assessment", description: "Assess risks to the achievement of objectives.", risk: "HIGH" },
+    { id: "CC4", title: "Monitoring Activities", description: "Select, develop, and perform ongoing evaluations to ascertain whether components of internal control are present and functioning.", risk: "HIGH" },
+    { id: "CC5", title: "Control Activities", description: "Select and develop control activities that contribute to the mitigation of risks.", risk: "HIGH" },
+    { id: "CC6", title: "Logical and Physical Access Controls", description: "Implement logical and physical access controls.", risk: "CRITICAL" },
+    { id: "CC7", title: "System Operations", description: "Manage system operations to achieve objectives.", risk: "HIGH" },
+    { id: "CC8", title: "Change Management", description: "Authorize, design, develop, and test changes to systems.", risk: "HIGH" },
+    { id: "CC9", title: "Risk Mitigation", description: "Mitigate risks from business disruptions and use of vendors.", risk: "HIGH" },
+  ]
+};
+
+FRAMEWORKS["hipaa"] = {
+  name: "HIPAA Security Rule",
+  version: "45 CFR Part 160 and Part 164",
+  description: "National standards to protect individuals' electronic personal health information.",
+  items: [
+    { id: "164.308", title: "Administrative Safeguards", description: "Implement policies and procedures to prevent, detect, contain, and correct security violations.", risk: "HIGH" },
+    { id: "164.310", title: "Physical Safeguards", description: "Implement physical measures to protect electronic information systems.", risk: "MEDIUM" },
+    { id: "164.312", title: "Technical Safeguards", description: "Implement technical policies and procedures for electronic information systems.", risk: "CRITICAL" },
+    { id: "164.314", title: "Organizational Requirements", description: "Ensure business associate contracts include security requirements.", risk: "HIGH" },
+    { id: "164.316", title: "Policies and Procedures", description: "Implement reasonable and appropriate policies and procedures.", risk: "MEDIUM" },
+  ]
+};
+
+FRAMEWORKS["cis-v8"] = {
+  name: "CIS Controls",
+  version: "v8",
+  description: "Prioritized set of safeguards to mitigate the most prevalent cyber attacks.",
+  items: [
+    { id: "CIS-1", title: "Inventory and Control of Enterprise Assets", description: "Actively manage all enterprise assets.", risk: "HIGH" },
+    { id: "CIS-2", title: "Inventory and Control of Software Assets", description: "Actively manage all software on the network.", risk: "HIGH" },
+    { id: "CIS-3", title: "Data Protection", description: "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.", risk: "CRITICAL" },
+    { id: "CIS-4", title: "Secure Configuration", description: "Establish and maintain the secure configuration of enterprise assets.", risk: "HIGH" },
+    { id: "CIS-5", title: "Account Management", description: "Use processes and tools to assign and manage authorization to credentials.", risk: "CRITICAL" },
+    { id: "CIS-6", title: "Access Control Management", description: "Use processes and tools to create, assign, manage, and revoke access credentials.", risk: "CRITICAL" },
+    { id: "CIS-7", title: "Continuous Vulnerability Management", description: "Develop a plan to continuously assess and track vulnerabilities.", risk: "HIGH" },
+    { id: "CIS-8", title: "Audit Log Management", description: "Collect, alert, review, and retain audit logs of events.", risk: "HIGH" },
+  ]
+};
+
+FRAMEWORKS["gdpr"] = {
+  name: "GDPR",
+  version: "EU 2016/679",
+  description: "General Data Protection Regulation for data protection and privacy in the EU.",
+  items: [
+    { id: "Art-5", title: "Principles relating to processing of personal data", description: "Process personal data lawfully, fairly and in a transparent manner.", risk: "HIGH" },
+    { id: "Art-25", title: "Data protection by design and by default", description: "Implement appropriate technical and organisational measures.", risk: "HIGH" },
+    { id: "Art-28", title: "Processor", description: "Use only processors providing sufficient guarantees to implement appropriate technical and organisational measures.", risk: "MEDIUM" },
+    { id: "Art-32", title: "Security of processing", description: "Implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk.", risk: "CRITICAL" },
+    { id: "Art-33", title: "Notification of a personal data breach", description: "Notify the supervisory authority of a personal data breach without undue delay.", risk: "HIGH" },
+  ]
+};
