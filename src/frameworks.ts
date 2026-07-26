@@ -57,4 +57,66 @@ export const FRAMEWORKS: Record<string, Framework> = {
       { id: "A.8.32", title: "Change Management",                   description: "Are changes to information processing facilities and systems managed via a formal change management procedure?",           risk: "MEDIUM" },
     ],
   },
+  pcidss: {
+    name: "PCI-DSS",
+    version: "v4.0",
+    description: "Payment Card Industry Data Security Standard, required for handling credit card information.",
+    items: [
+      { id: "Req 3", title: "Protect Stored Account Data", description: "Is primary account number (PAN) storage kept to a minimum and encrypted?", risk: "CRITICAL" },
+      { id: "Req 4", title: "Protect Data in Transit", description: "Is account data encrypted during transmission over open, public networks?", risk: "CRITICAL" },
+      { id: "Req 6", title: "Secure Software Development", description: "Are all systems and software developed securely and maintained to protect against vulnerabilities?", risk: "HIGH" },
+      { id: "Req 8", title: "Identity and Access Management", description: "Is access to system components and cardholder data restricted to only those individuals whose job requires such access? Is MFA implemented?", risk: "CRITICAL" },
+      { id: "Req 10", title: "Log and Monitor Access", description: "Is all access to system components and cardholder data logged and monitored?", risk: "HIGH" },
+      { id: "Req 11", title: "Security Testing", description: "Are security of systems and networks tested regularly (e.g., vulnerability scans, penetration testing)?", risk: "HIGH" }
+    ],
+  },
+  soc2: {
+    name: "SOC 2 Type II",
+    version: "2017 Trust Services Criteria",
+    description: "Auditing procedure that ensures service providers securely manage data to protect the interests of the organization and the privacy of its clients.",
+    items: [
+      { id: "CC6.1", title: "Logical Access Security", description: "Does the entity implement logical access security software, infrastructure, and architectures over protected information assets?", risk: "CRITICAL" },
+      { id: "CC6.2", title: "User Access Registration", description: "Does the entity register and authorize new internal and external users whose access is administered?", risk: "HIGH" },
+      { id: "CC7.1", title: "System Monitoring", description: "Does the entity use detection and monitoring procedures to identify vulnerabilities and anomalies in system configuration and operation?", risk: "HIGH" },
+      { id: "CC7.2", title: "Incident Response", description: "Does the entity evaluate security events to determine whether they could or have resulted in a failure to meet objectives and respond accordingly?", risk: "HIGH" },
+      { id: "CC8.1", title: "Change Management", description: "Does the entity authorize, design, develop or acquire, configure, document, test, approve, and implement changes to infrastructure, data, software, and procedures?", risk: "MEDIUM" }
+    ],
+  },
+  hipaa: {
+    name: "HIPAA Security Rule",
+    version: "45 CFR Part 160 and 164",
+    description: "US national standards to protect sensitive patient health information from being disclosed without the patient's consent or knowledge.",
+    items: [
+      { id: "164.308(a)(1)", title: "Security Management Process", description: "Is a risk analysis conducted and a risk management policy implemented to reduce risks to ePHI?", risk: "CRITICAL" },
+      { id: "164.308(a)(5)", title: "Security Awareness and Training", description: "Is there a security awareness and training program for all workforce members?", risk: "HIGH" },
+      { id: "164.312(a)(1)", title: "Access Control", description: "Are technical policies and procedures implemented for electronic information systems that maintain ePHI to allow access only to those granted access rights?", risk: "CRITICAL" },
+      { id: "164.312(b)", title: "Audit Controls", description: "Are hardware, software, and/or procedural mechanisms implemented that record and examine activity in information systems that contain or use ePHI?", risk: "HIGH" },
+      { id: "164.312(e)(1)", title: "Transmission Security", description: "Are technical security measures implemented to guard against unauthorized access to ePHI that is being transmitted over an electronic communications network?", risk: "CRITICAL" }
+    ],
+  },
+  cisv8: {
+    name: "CIS Controls v8",
+    version: "v8",
+    description: "A prioritized set of safeguards to mitigate the most prevalent cyber attacks against systems and networks.",
+    items: [
+      { id: "CIS 1", title: "Inventory and Control of Enterprise Assets", description: "Is there an accurate and up-to-date inventory of all enterprise assets?", risk: "MEDIUM" },
+      { id: "CIS 2", title: "Inventory and Control of Software Assets", description: "Is there an accurate and up-to-date inventory of all software assets?", risk: "MEDIUM" },
+      { id: "CIS 4", title: "Secure Configuration of Enterprise Assets and Software", description: "Are secure configurations established and maintained for enterprise assets and software?", risk: "HIGH" },
+      { id: "CIS 5", title: "Account Management", description: "Are all accounts managed and reviewed, and is unused or inactive account access disabled?", risk: "HIGH" },
+      { id: "CIS 6", title: "Access Control Management", description: "Is access to enterprise assets and software granted based on the principle of least privilege?", risk: "CRITICAL" },
+      { id: "CIS 16", title: "Application Software Security", description: "Is the security life cycle of in-house developed, hosted, or acquired software managed to prevent, detect, and remediate security weaknesses?", risk: "HIGH" }
+    ],
+  },
+  gdpr: {
+    name: "GDPR",
+    version: "2016/679",
+    description: "General Data Protection Regulation on information privacy in the European Union and the European Economic Area.",
+    items: [
+      { id: "Art 5", title: "Principles relating to processing of personal data", description: "Is personal data processed lawfully, fairly and in a transparent manner in relation to the data subject? Is it collected for specified, explicit and legitimate purposes?", risk: "HIGH" },
+      { id: "Art 25", title: "Data protection by design and by default", description: "Are appropriate technical and organisational measures implemented which are designed to implement data-protection principles?", risk: "HIGH" },
+      { id: "Art 32", title: "Security of processing", description: "Are appropriate technical and organisational measures implemented to ensure a level of security appropriate to the risk, including encryption of personal data?", risk: "CRITICAL" },
+      { id: "Art 33", title: "Notification of a personal data breach", description: "Is there a process to notify the supervisory authority of a personal data breach without undue delay and, where feasible, not later than 72 hours?", risk: "HIGH" },
+      { id: "Art 35", title: "Data protection impact assessment", description: "Is a data protection impact assessment carried out where a type of processing is likely to result in a high risk to the rights and freedoms of natural persons?", risk: "MEDIUM" }
+    ],
+  }
 };
